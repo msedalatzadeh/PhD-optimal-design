@@ -42,11 +42,11 @@ function $b(\xi;  r) $  is assumed continuously differentiable with respect to $
 ## Optimal Controller and Actuator Location
 In this section, we apply the results of previous sections to compute an optimal control and actuator location for the vibration suppression of the track. As discussed in chapter 3, the problem of finding the best control and actuator location is the optimization problem
 \begin{equation}
-\left\{ \begin{array}{ll}
-\min&J(\ub,\rb;\xb_0)\\
-\text{s.t.}&\dot{\xb}(t)=\mc{A}\xb(t)+\F(\xb(t))+\mc{B}(\rb)\ub(t), \quad \forall t\in(0,T],\\
-&\xb(0)=\xb_0
-\end{array} \right. \tag{P} \label{Numerics-eq-optimal problem}
+\begin{cases}
+\min&J(u,r;x_0)\\
+\text{s.t.}&\dot{x}(t)=Ax(t)+F(x(t))+B(r)u(t), \quad \forall t\in(0,T],\\
+&x(0)=x_0
+\end{cases}
 \end{equation}
 The fitst order optimality conditions were derived in chapter 3. The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
 \begin{equation}\label{Numerics-eq-FVP}
