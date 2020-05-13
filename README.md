@@ -4,10 +4,6 @@ Actuator location and design are important design variables  in controller synth
 
 
 
-
-
-
-
 ## Raiway Track Model
 Railway tracks are rested on ballast which are known for exhibiting nonlinear viscoelastic behavior. If a track beam is made of a Kelvin-Voigt material, then the railway track model will be a semi-linear partial differential equation on <img src="/tex/2a1afb1e2126e7a44c815592bdd86dd1.svg?invert_in_darkmode&sanitize=true" align=middle width=59.54613389999999pt height=24.65753399999998pt/> as follows:
 
@@ -21,5 +17,26 @@ function <img src="/tex/2b4416ce2e321aa9278e0f6e393fbfed.svg?invert_in_darkmode&
 <p align="center">
 <img src="figs/Beam-schematic-2.JPG" width="400" />
 </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Optimal Controller and Actuator Location
+In this section, we apply the results of previous sections to compute an optimal control and actuator location for the vibration suppression of the track. As discussed in chapter 3, the problem of finding the best control and actuator location is the optimization problem
+<p align="center"><img src="/tex/1f340a6747f2de951da8c7c323dcb3c2.svg?invert_in_darkmode&sanitize=true" align=middle width=533.57751975pt height=59.178683850000006pt/></p>
+The fitst order optimality conditions were derived in chapter 3. The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
+<p align="center"><img src="/tex/a0474b8317a9933910d85b1ba431868b.svg?invert_in_darkmode&sanitize=true" align=middle width=484.43430584999993pt height=20.52955905pt/></p>
+For every <img src="/tex/83788cfb666cb6880ad6a5126f543581.svg?invert_in_darkmode&sanitize=true" align=middle width=35.68482224999999pt height=22.831056599999986pt/>, the derivatives of the cost function with respect to <img src="/tex/322fd42358a5933530291efc5cb4cf6f.svg?invert_in_darkmode&sanitize=true" align=middle width=8.21920935pt height=14.15524440000002pt/> and <img src="/tex/ad00c578a101b09df3981ed7822da4a6.svg?invert_in_darkmode&sanitize=true" align=middle width=8.21920935pt height=14.15524440000002pt/> evaluated at <img src="/tex/5b3ed6474c6467af7484edb94101f082.svg?invert_in_darkmode&sanitize=true" align=middle width=73.96433549999999pt height=24.65753399999998pt/>, <img src="/tex/23ffebb98b4e00f49a2f1d59a683bc1f.svg?invert_in_darkmode&sanitize=true" align=middle width=76.70180924999998pt height=24.65753399999998pt/> are linear operators <img src="/tex/a7fe1ede9f3839b4db1952843489f9a2.svg?invert_in_darkmode&sanitize=true" align=middle width=57.561612899999986pt height=24.65753399999998pt/> and <img src="/tex/891b681e0180c0f90b985addd60cae17.svg?invert_in_darkmode&sanitize=true" align=middle width=59.89952429999999pt height=24.65753399999998pt/>, respectively. Identifying each operator with an element of its underlying space, they are derived as
+<p align="center"><img src="/tex/d2a5a9e3f7a518a73f3257a27843ff2a.svg?invert_in_darkmode&sanitize=true" align=middle width=449.19430379999994pt height=65.9730753pt/></p>
+
 
 
