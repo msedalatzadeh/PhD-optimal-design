@@ -1,0 +1,7 @@
+F10.obj
+F10_initialize.obj
+F10_terminate.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj
+sqrt.obj
