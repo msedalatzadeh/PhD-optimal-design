@@ -182,29 +182,35 @@ J(u_{n,m},r_{n,m};x_0)\le J(u_{n},r_n;x_0),
 \end{equation}
 then accept the step size; otherwise, set $s^u_{n,m+1}=\frac{1}{2}s^u_{n,m}$ and $s^r_{n,m+1}=\frac{1}{2}s^r_{n,m}$ and repeat the process.
 \item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$ and $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$ together with  $h^u_{n,m}=-D_u J(u_{n,m},r_{n,m};x_0)$ and $h^r_{n,m}=-D_r J(r_{n,m},r_{n,m};x_0)$. Iterate the step size $s^u_{n,m}$ and $s^r_{n,m}$ until the following conditions are met
+
 \begin{subequations}\label{Numerics-eq-curvature Wolfe}
 \begin{flalign}
-J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\langle h^u_{n,m}}{d^u_{n} \rangle_U\\
-&\quad +c_1s^r_{n,m}\langle h^r_{n,m}}{d^r_{n}\rangle_K\notag,\\
-\langle h^u_{n,m}}{d^u_{n} \rangle_U&\ge c_2  \langle h^u_{n}}{d^u_{n} \rangle_U,\\
-\langle h^r_{n,m}}{d^r_{n} \rangle_K&\ge c_2  \langle h^r_{n}}{d^r_{n} \rangle_K.
+J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\langle h^u_{n,m} , d^u_{n} \rangle_U\\
+&\quad +c_1s^r_{n,m}\langle h^r_{n,m} , d^r_{n}\rangle_K\notag,\\
+\langle h^u_{n,m} , d^u_{n} \rangle_U&\ge c_2  \langle h^u_{n}}{d^u_{n} \rangle_U,\\
+\langle h^r_{n,m} , d^r_{n} \rangle_K&\ge c_2  \langle h^r_{n}}{d^r_{n} \rangle_K.
 \end{flalign}
 \end{subequations}
+
 \item \textbf{Strong Wolfe conditions \cite[Section~3.1]{nocedal1999}:} Similar to Wolfe conditions except that condition (\ref{Numerics-eq-curvature Wolfe}) is replaced with
 \begin{subequations}
 \begin{flalign}
-|\langle h^u_{n,m+1}}{d^u_{n,m} \rangle_U|&\le c_2  |\langle h^u_{n,m}}{d^u_{n,m} \rangle_U|,\\
-|\langle h^r_{n,m+1}}{d^r_{n,m} \rangle_K|&\le c_2  |\langle h^r_{n,m}}{d^r_{n,m} \rangle_K|.
+|\langle h^u_{n,m+1} , d^u_{n,m} \rangle_U|&\le c_2  |\langle h^u_{n,m} , d^u_{n,m} \rangle_U|,\\
+|\langle h^r_{n,m+1} , d^r_{n,m} \rangle_K|&\le c_2  |\langle h^r_{n,m} , d^r_{n,m} \rangle_K|.
 \end{flalign}
 \end{subequations}
+
 \item \textbf{Secant method:} The step lengths can be approximate minimizers of the function $\theta(s^u ,s^r):= J(u_n+s^u d^u_n,r_n+s^rd^r_n;x_0)$. For instance, letting $\sigma^u $ and $\sigma^r$ be some positive constants, an approximate minimizer of $\theta(s^u ,s^r)$ can be derived by using secant formula as
+
 \begin{equation}
 s^u =\frac{\theta_{s^u }(0,0)}{\theta_{s^u }(\sigma^u ,0)-\theta_{s^u }(0,0)},\; s^r=\frac{\theta_{s^r}(0,0)}{\theta_{s^r}(0,\sigma^r)-\theta_{s^r}(0,0)},
 \end{equation}
+
 where the subscripts indicate partial derivatives. In the first iteration, the constants $\sigma^u $ and $\sigma^r$ are chosen arbitrary; in next iterations, they are set to the values of $s^u $ and $s^r$ found in the previous iteration \cite{herzog2010}. Accordingly, from the definition of $\theta(s^u ,s^r)$, and by arbitrary initializing $s^u_0$ and $s^r_0$, it follow that 
+
 \begin{subequations}
 \begin{flalign}\label{Numerics-eq-secant}
-s^u_n &=-\frac{\langle h^u_n}{d^u_n \rangle_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n \|_U},\\ 
+s^u_n &=-\frac{\langle h^u_n, d^u_n \rangle_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n \|_U},\\ 
 s^r_n &=-\frac{\langle h^r_n}{d^r_n}_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
 \end{flalign}
 \end{subequations} 
