@@ -210,8 +210,8 @@ where the subscripts indicate partial derivatives. In the first iteration, the c
 
 \begin{subequations}
 \begin{flalign}\label{Numerics-eq-secant}
-s^u_n &=-\frac{\langle h^u_n, d^u_n \rangle_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n \|_U},\\ 
-s^r_n &=-\frac{\langle h^r_n}{d^r_n}_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
+s^u_n &=-\frac{\langle h^u_n, d^u_n \rangle_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0) , d^u_n \rangle_U},\\ 
+s^r_n &=-\frac{\langle h^r_n , d^r_n \rangle_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0) , d^u_n \rangle_K}.
 \end{flalign}
 \end{subequations} 
 %\item \textbf{Hager-Zhang with guaranteed descent}:
