@@ -48,17 +48,18 @@ In this section, we apply the results of previous sections to compute an optimal
 &x(0)=x_0
 \end{cases}
 \end{equation}
-The fitst order optimality conditions were derived in chapter 3. The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
-\begin{equation}\label{Numerics-eq-FVP}
-\dot{\pb}(t)=-(\mc{A}^*+\F'^*_{\xb(t)})\pb(t)-\mc{Q}\xb(t),\quad \pb(T)=0 \tag{FVP}
+
+The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
+\begin{equation}
+\dot{p}(t)=-(A^*+F'^*_x(t))p(t)-Qx(t),\quad p(T)=0
 \end{equation}
-For every $\xb_0\in \ss$, the derivatives of the cost function with respect to $\ub$ and $\rb$ evaluated at $\ub\in \text{int}(U_{ad})$, $\rb\in \text{int}(K_{ad})$ are linear operators $D_\ub J(\ub,\rb;\xb_0)$ and $D_{\rb}J(\ub,\rb;\xb_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
-\begin{subequations}
-\begin{flalign}
-D_\ub J(\ub,\rb;\xb_0)&=\B^*(\rb)\pb(t)+\mc{R} \ub(t),\label{Numerics-eq-duJ}\\
-D_{\rb}J(\ub,\rb,\xb_0)&=\int_0^T(\B'_{\rb}\ub(s))^*\pb(s)\, ds.\label{Numerics-eq-drJ}
-\end{flalign}
-\end{subequations}
+For every $x_0\in X$, the derivatives of the cost function with respect to $u$ and $r$ evaluated at $u\in \text{int}(U_{ad})$, $r\in \text{int}(K_{ad})$ are linear operators $D_u J(u,r;x_0)$ and $D_{r}J(u,r;x_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
+\begin{equation}
+\begin{cases}
+D_u J(u,r;x_0)&=B^*(r)p(t)+R u(t),\\
+D_{r}J(u,r,x_0)&=\int_0^T(B'_{r}u(s))^*p(s)\, ds.
+\end{cases}
+\end{equation}
 
 
 
