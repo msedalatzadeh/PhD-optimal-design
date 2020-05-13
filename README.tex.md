@@ -150,25 +150,3 @@ The nonlinear conjugate gradient method reads as follows:
 
 \item \textbf{end while}
 \end{enumerate}
-
-
-Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are considered for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$)
-
-\begin{flalign*}
-&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\| h^u_{n+1}}{U}}{\| h^u_n}{U}},\\
-&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\| h^u_n}{U}},\\
-&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\langle d^u_n}{\gamma^u_{n+1} \rangle_U}.
-\end{flalign*}
-
-
-A new formula was also proposed by Hager and Zhang; define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
-
-\begin{flalign}
-\bar{\beta}^u_{n+1}&=\frac{\langle \gamma^u_{n+1}-2\frac{\| \gamma^u_{n+1} \rangle_U^2}{\langle d^u_{n}}{\gamma^u_{n+1} \rangle_U}d^u_n}{h^u_{n+1} \|_U}{\langle d^u_{n+1}}{\gamma^u_{n+1} \rangle_U},\notag \\
-\eta^u_{n+1}&=-\frac{1}{\| d^u_n}{U}}\min\left\{0.01,\| h^u_n}{U}\right\}\notag.
-\end{flalign}
-
-Then, the formula is
-\begin{equation}
-\text{Hager-Zhang:}\quad \beta^u_{n+1}=\max\left\{\bar{\beta}^u_{n+1},\eta^u_{n+1}\right\}
-\end{equation}
