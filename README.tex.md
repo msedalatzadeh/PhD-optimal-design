@@ -84,9 +84,11 @@ D_{r}J(u,r,x_0)&=\int_0^T(B'_{r}u(s))^*p(s)\, ds.
 
 
 ## Optimization Algorithms
-Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. This algorithm reads as follows:
+Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. 
 
-begin{algorithm}(Projected Gradient Method)
+### Projected Gradient Algorithm
+The projected gradient method reads as follows:
+
 \begin{enumerate}
 \item \textbf{input} initial guesses $\ub_1\in U_{ad}$ and $\rb_1\in K_{ad}$
 \item Set $n=1$
@@ -99,4 +101,52 @@ begin{algorithm}(Projected Gradient Method)
 \item \hspace*{0.5cm}increase $n$
 \item \textbf{end while}
 \end{enumerate}
-\end{algorithm}
+
+Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. 
+
+### Conjugate Gradient Algorithm
+The nonlinear conjugate gradient method reads as follows:
+
+\begin{enumerate}
+\item \textbf{input} initial guesses $\ub_1\in U_{ad}$ and $\rb_1\in K_{ad}$
+
+\item Set $n=1$
+
+\item Set $d^\ub_n= h^\ub_n\coloneqq -D_\ub J(\ub_n,\rb_n,\xb_0)$ and $d^\rb_n= h^\rb_n\coloneqq-D_{\rb}J(\ub_n,\rb_n;\xb_0)$
+
+\item \textbf{while} a criteria is met \textbf{do}
+
+\item \hspace*{0.5cm}Solve the IVP for $\ub_n$ and $\rb_n$, and find $\xb_n$
+
+\item \hspace*{0.5cm}Solve the FVP for $\xb_n$, and find $\pb_n$
+
+\item \hspace*{0.5cm}Obtain step lengths $s^\ub_n$ and $s^\rb_n$ using, e.g., secant method in (\ref{Numerics-eq-secant})
+
+\item \hspace*{0.5cm}Set $\ub_{n+1}=\ub_n+s_n^\ub d_n^\ub $ and $\rb_{n+1}=\rb_n+s_n^\rb d_n^\rb$
+
+\item \hspace*{0.5cm}Solve the IVP for $\ub_{n+1}$ and $\rb_{n+1}$, and find $\xb_{n+1}$
+
+\item \hspace*{0.5cm}Solve the FVP for $\xb_{n+1}$, and find $\pb_{n+1}$
+
+\item \hspace*{0.5cm}Evaluate $h^\ub_{n+1}\coloneqq -D_\ub J(\ub_{n+1},\rb_{n+1},\xb_0) $ and $h^\rb_{n+1}\coloneqq-D_{\rb}J(\ub_{n+1},\rb_{n+1};\xb_0)$ \hspace*{0.5cm}from (\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
+
+\item \hspace*{0.5cm}Determine step lengths $\beta^\ub_{n+1}$ and $\beta^\rb_{n+1}$ using, e.g., Fletcher-Reeves \hspace*{0.5cm}or Polak-Ribi\`ere formula \cite[Section~5.2]{nocedal1999}
+
+\item \hspace*{0.5cm}Set $d^\ub_{n+1}\coloneqq h^\ub_{n+1}+\beta^\ub_{n+1}d^\ub_{n}$ and $d^\rb_{n+1}\coloneqq h^\rb_{n+1}+\beta^\rb_{n+1}d^\rb_{n}$
+
+\item \hspace*{0.5cm}\textbf{if} $\inn{d^\ub_{n+1}}{h^\ub_{n+1}}_{L^2(0,T;\cs)}\le 0$ \textbf{then}
+
+\item \hspace*{1cm}Set $d^\ub_{n+1}=h^\ub_{n+1}$
+
+\item \hspace*{0.5cm}\textbf{end if}
+
+\item \hspace*{0.5cm}\textbf{if} $\inn{d^\rb_{n+1}}{h^\rb_{n+1}}_{\as}\le 0$ \textbf{then}
+
+\item \hspace*{1cm}Set $d^\rb_{n+1}=h^\rb_{n+1}$
+
+\item \hspace*{0.5cm}\textbf{end if}
+
+\item \hspace*{0.5cm}increase $n$
+
+\item \textbf{end while}
+\end{enumerate}
