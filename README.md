@@ -67,11 +67,23 @@ Several optimization algorithms were suggested in the literature for solving PDE
 ### Projected Gradient Algorithm
 The projected gradient method reads as follows:
 
-<p align="center"><img src="/tex/d7666e1c8af0cbe5abd54154f96c2506.svg?invert_in_darkmode&sanitize=true" align=middle width=636.01678305pt height=307.3059396pt/></p>
+<p align="center"><img src="/tex/eb3978a97659368637046fd6e8d0ebc3.svg?invert_in_darkmode&sanitize=true" align=middle width=653.30609025pt height=307.3059396pt/></p>
 
 Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. 
 
 ### Conjugate Gradient Algorithm
 The nonlinear conjugate gradient method reads as follows:
 
-<p align="center"><img src="/tex/7b7be02040242413e0e3052e57544f66.svg?invert_in_darkmode&sanitize=true" align=middle width=688.40251095pt height=700.9821951pt/></p>
+<p align="center"><img src="/tex/d668d889b7508ac5dca26012fd204058.svg?invert_in_darkmode&sanitize=true" align=middle width=688.40251095pt height=710.8838121pt/></p>
+
+
+Several choices exist for selecting the step length <img src="/tex/6048c4fc08d21c02067a5da6a58c128b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/> (similarly <img src="/tex/2821c0570e6ce1f89053bac27705416b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/>) of the previous algorithm \cite{hager2006survey}. Letting <img src="/tex/7d853684f81df818b709dc7fd758f3b1.svg?invert_in_darkmode&sanitize=true" align=middle width=128.77141364999997pt height=22.831056599999986pt/>, the following are for selecting the step length <img src="/tex/6048c4fc08d21c02067a5da6a58c128b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/> (similarly <img src="/tex/2821c0570e6ce1f89053bac27705416b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/>) considered in this paper
+<p align="center"><img src="/tex/3142ac0af7161bca8375cf9065923de1.svg?invert_in_darkmode&sanitize=true" align=middle width=489.64261995pt height=133.15432844999998pt/></p>
+A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define <img src="/tex/1c9d379fca0ba4abc98eeec665ac2dc7.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=27.342470100000007pt/> and <img src="/tex/a8ccffe21d32d0177c73290cf2feface.svg?invert_in_darkmode&sanitize=true" align=middle width=32.932104149999994pt height=21.839370299999988pt/> as
+<p align="center"><img src="/tex/221369b64ecb6721677c194fa44854f2.svg?invert_in_darkmode&sanitize=true" align=middle width=248.64261014999997pt height=100.33617495pt/></p>
+Then, the formula is
+<p align="center"><img src="/tex/f9fcadcbe737bb4292df38072d94b29c.svg?invert_in_darkmode&sanitize=true" align=middle width=499.64356695pt height=19.726228499999998pt/></p>
+
+Furthermore, several schemes have been proposed to choose the step length <img src="/tex/a68ff5515c27e035477f850a94c55cee.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/> (similarly <img src="/tex/764105dc279f1c31f3ecbf550438853a.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/>) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
+%, and Hager-Zhang with guaranteed descent.
+<p align="center"><img src="/tex/8504e0085f32771b39afc4379ba35138.svg?invert_in_darkmode&sanitize=true" align=middle width=684.37847775pt height=818.36052045pt/></p>
