@@ -41,27 +41,27 @@ function $b(\xi;  r) $  is assumed continuously differentiable with respect to $
 
 ## Optimal Controller and Actuator Location
 In this section, we apply the results of previous sections to compute an optimal control and actuator location for the vibration suppression of the track. As discussed in chapter 3, the problem of finding the best control and actuator location is the optimization problem
-\begin{equation*}
+\begin{equation}
 \begin{cases}
 \min&J(u,r;x_0)\\
 \text{s.t.}&\dot{x}(t)=Ax(t)+F(x(t))+B(r)u(t), \quad \forall t\in(0,T],\\
 &x(0)=x_0
 \end{cases}
-\end{equation*}
+\end{equation}
 
 The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
-\begin{equation*}
+\begin{equation}
 \dot{p}(t)=-(A^*+F'^*_x(t))p(t)-Qx(t),\quad p(T)=0
-\end{equation*}
+\end{equation}
 
 For every $x_0\in X$, the derivatives of the cost function with respect to $u$ and $r$ evaluated at $u\in \text{int}(U_{ad})$, $r\in \text{int}(K_{ad})$ are linear operators $D_u J(u,r;x_0)$ and $D_{r}J(u,r;x_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
 
-\begin{equation*}
+\begin{equation}
 \begin{cases}
 D_u J(u,r;x_0)&=B^*(r)p(t)+R u(t),\\
 D_{r}J(u,r,x_0)&=\int_0^T(B'_{r}u(s))^*p(s)\, ds.
 \end{cases}
-\end{equation*}
+\end{equation}
 
 
 
