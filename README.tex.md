@@ -1,4 +1,4 @@
-# Optimal Actuator Location for Railway Tracks
+# Optimal Actuator Location for Railway Track PDE
 Actuator location and design are important design variables  in controller synthesis for distributed parameter systems. Finding the best actuator location to control a distributed parameter system can significantly reduce the cost of the control and improve  its effectiveness. From a theoretical point of view, the existence of an optimal actuator location has been discussed in the literature for linear partial differential equations (PDE's). It was proven that an optimal actuator location exists for linear-quadratic control.  Conditions under which using approximations in optimization yield the optimal location are also established.
  Similar results have been obtained for $H_2$ and $H_\infty$ controller design objectives with linear models. There are also results on the related problem of optimal sensor location for linear PDE's.
 
@@ -41,27 +41,27 @@ function $b(\xi;  r) $  is assumed continuously differentiable with respect to $
 
 ## Optimal Controller and Actuator Location
 In this section, we apply the results of previous sections to compute an optimal control and actuator location for the vibration suppression of the track. As discussed in chapter 3, the problem of finding the best control and actuator location is the optimization problem
-\begin{equation}
+\begin{equation*}
 \begin{cases}
 \min&J(u,r;x_0)\\
 \text{s.t.}&\dot{x}(t)=Ax(t)+F(x(t))+B(r)u(t), \quad \forall t\in(0,T],\\
 &x(0)=x_0
 \end{cases}
-\end{equation}
+\end{equation*}
 
 The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
-\begin{equation}
+\begin{equation*}
 \dot{p}(t)=-(A^*+F'^*_x(t))p(t)-Qx(t),\quad p(T)=0
-\end{equation}
+\end{equation*}
 
 For every $x_0\in X$, the derivatives of the cost function with respect to $u$ and $r$ evaluated at $u\in \text{int}(U_{ad})$, $r\in \text{int}(K_{ad})$ are linear operators $D_u J(u,r;x_0)$ and $D_{r}J(u,r;x_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
 
-\begin{equation}
+\begin{equation*}
 \begin{cases}
 D_u J(u,r;x_0)&=B^*(r)p(t)+R u(t),\\
 D_{r}J(u,r,x_0)&=\int_0^T(B'_{r}u(s))^*p(s)\, ds.
 \end{cases}
-\end{equation}
+\end{equation*}
 
 
 
@@ -120,7 +120,7 @@ The nonlinear conjugate gradient method reads as follows:
 
 \item \hspace*{0.5cm}Solve the FVP for $x_n$, and find $\pb_n$
 
-\item \hspace*{0.5cm}Obtain step lengths $s^u_n$ and $s^r_n$ using, e.g., secant method in (\ref{Numerics-eq-secant})
+\item \hspace*{0.5cm}Obtain step lengths $s^u_n$ and $s^r_n$ using, e.g., secant method
 
 \item \hspace*{0.5cm}Set $u_{n+1}=u_n+s_n^u d_n^u $ and $r_{n+1}=r_n+s_n^r d_n^r$
 
@@ -128,9 +128,9 @@ The nonlinear conjugate gradient method reads as follows:
 
 \item \hspace*{0.5cm}Solve the FVP for $x_{n+1}$, and find $\pb_{n+1}$
 
-\item \hspace*{0.5cm}Evaluate $h^u_{n+1}:= -D_u J(u_{n+1},r_{n+1},x_0) $ and $h^r_{n+1}:=-D_{r}J(u_{n+1},r_{n+1};x_0)$ \hspace*{0.5cm}from (\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
+\item \hspace*{0.5cm}Evaluate $h^u_{n+1}:= -D_u J(u_{n+1},r_{n+1},x_0) $ and $h^r_{n+1}:=-D_{r}J(u_{n+1},r_{n+1};x_0)$ using previous section
 
-\item \hspace*{0.5cm}Determine step lengths $\beta^u_{n+1}$ and $\beta^r_{n+1}$ using, e.g., Fletcher-Reeves \hspace*{0.5cm}or Polak-Ribi\`ere formula \cite[Section~5.2]{nocedal1999}
+\item \hspace*{0.5cm}Determine step lengths $\beta^u_{n+1}$ and $\beta^r_{n+1}$ using, e.g., Fletcher-Reeves or Polak-Ribi\`ere formula
 
 \item \hspace*{0.5cm}Set $d^u_{n+1}:= h^u_{n+1}+\beta^u_{n+1}d^u_{n}$ and $d^r_{n+1}:= h^r_{n+1}+\beta^r_{n+1}d^r_{n}$
 
@@ -152,14 +152,15 @@ The nonlinear conjugate gradient method reads as follows:
 \end{enumerate}
 
 
-Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm \cite{hager2006survey}. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) considered in this paper
-\begin{subequations}
-\begin{flalign}
+Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are considered for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$)
+
+\begin{flalign*}
 &\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\norm{h^u_{n+1}}{U}}{\norm{h^u_n}{U}},\\
 &\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\norm{h^u_n}{U}},\\
 &\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\inn{d^u_n}{\gamma^u_{n+1}}_U}.
-\end{flalign}
-\end{subequations}
+\end{flalign*}
+
+
 A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
 \begin{flalign}
 \bar{\beta}^u_{n+1}&=\frac{\inn{\gamma^u_{n+1}-2\frac{\normm{\gamma^u_{n+1}}_U^2}{\inn{d^u_{n}}{\gamma^u_{n+1}}_U}d^u_n}{h^u_{n+1}}_U}{\inn{d^u_{n+1}}{\gamma^u_{n+1}}_U},\notag \\
