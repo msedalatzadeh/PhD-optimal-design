@@ -116,13 +116,13 @@ Projected gradient method is typically converging to an optimizer slowly, wherea
 
 \item \hspace*{0.5cm}Set $d^u_{n+1}:= h^u_{n+1}+\beta^u_{n+1}d^u_{n}$ and $d^r_{n+1}:= h^r_{n+1}+\beta^r_{n+1}d^r_{n}$
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^u_{n+1}}{h^u_{n+1}}_{L^2(0,T;U)}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\langle d^u_{n+1}}{h^u_{n+1}}_{L^2(0,T;U)}\le 0$ \textbf{then}
 
 \item \hspace*{1cm}Set $d^u_{n+1}=h^u_{n+1}$
 
 \item \hspace*{0.5cm}\textbf{end if}
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^r_{n+1}}{h^r_{n+1}}_{K}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\langle d^r_{n+1}}{h^r_{n+1}}_{K}\le 0$ \textbf{then}
 
 \item \hspace*{1cm}Set $d^r_{n+1}=h^r_{n+1}$
 
@@ -137,15 +137,15 @@ Projected gradient method is typically converging to an optimizer slowly, wherea
 Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm \cite{hager2006survey}. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) considered in this paper
 \begin{subequations}
 \begin{flalign}
-&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\norm{h^u_{n+1}}{U}}{\norm{h^u_n}{U}},\\
-&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\norm{h^u_n}{U}},\\
-&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\inn{d^u_n}{\gamma^u_{n+1}}_U}.
+&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\| h^u_{n+1}}{U}}{\| h^u_n}{U}},\\
+&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \|_U}{\| h^u_n}{U}},\\
+&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \|_U}{\langle d^u_n}{\gamma^u_{n+1} \|_U}.
 \end{flalign}
 \end{subequations}
 A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
 \begin{flalign}
-\bar{\beta}^u_{n+1}&=\frac{\inn{\gamma^u_{n+1}-2\frac{\normm{\gamma^u_{n+1}}_U^2}{\inn{d^u_{n}}{\gamma^u_{n+1}}_U}d^u_n}{h^u_{n+1}}_U}{\inn{d^u_{n+1}}{\gamma^u_{n+1}}_U},\notag \\
-\eta^u_{n+1}&=-\frac{1}{\norm{d^u_n}{U}}\min\left\{0.01,\norm{h^u_n}{U}\right\}\notag.
+\bar{\beta}^u_{n+1}&=\frac{\langle \gamma^u_{n+1}-2\frac{\| \gamma^u_{n+1} \|_U^2}{\langle d^u_{n}}{\gamma^u_{n+1} \|_U}d^u_n}{h^u_{n+1} \|_U}{\langle d^u_{n+1}}{\gamma^u_{n+1} \|_U},\notag \\
+\eta^u_{n+1}&=-\frac{1}{\| d^u_n}{U}}\min\left\{0.01,\| h^u_n}{U}\right\}\notag.
 \end{flalign}
 Then, the formula is
 \begin{equation}
@@ -163,17 +163,17 @@ then accept the step size; otherwise, set $s^u_{n,m+1}=\frac{1}{2}s^u_{n,m}$ and
 \item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$ and $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$ together with  $h^u_{n,m}=-D_u J(u_{n,m},r_{n,m};x_0)$ and $h^r_{n,m}=-D_r J(r_{n,m},r_{n,m};x_0)$. Iterate the step size $s^u_{n,m}$ and $s^r_{n,m}$ until the following conditions are met
 \begin{subequations}\label{Numerics-eq-curvature Wolfe}
 \begin{flalign}
-J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\inn{h^u_{n,m}}{d^u_{n}}_U\\
-&\quad +c_1s^r_{n,m}\inn{h^r_{n,m}}{d^r_{n}}_K\notag,\\
-\inn{h^u_{n,m}}{d^u_{n}}_U&\ge c_2  \inn{h^u_{n}}{d^u_{n}}_U,\\
-\inn{h^r_{n,m}}{d^r_{n}}_K&\ge c_2  \inn{h^r_{n}}{d^r_{n}}_K.
+J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\langle h^u_{n,m}}{d^u_{n} \|_U\\
+&\quad +c_1s^r_{n,m}\langle h^r_{n,m}}{d^r_{n}}_K\notag,\\
+\langle h^u_{n,m}}{d^u_{n} \|_U&\ge c_2  \langle h^u_{n}}{d^u_{n} \|_U,\\
+\langle h^r_{n,m}}{d^r_{n}}_K&\ge c_2  \langle h^r_{n}}{d^r_{n}}_K.
 \end{flalign}
 \end{subequations}
 \item \textbf{Strong Wolfe conditions \cite[Section~3.1]{nocedal1999}:} Similar to Wolfe conditions except that condition (\ref{Numerics-eq-curvature Wolfe}) is replaced with
 \begin{subequations}
 \begin{flalign}
-|\inn{h^u_{n,m+1}}{d^u_{n,m}}_U|&\le c_2  |\inn{h^u_{n,m}}{d^u_{n,m}}_U|,\\
-|\inn{h^r_{n,m+1}}{d^r_{n,m}}_K|&\le c_2  |\inn{h^r_{n,m}}{d^r_{n,m}}_K|.
+|\langle h^u_{n,m+1}}{d^u_{n,m} \|_U|&\le c_2  |\langle h^u_{n,m}}{d^u_{n,m} \|_U|,\\
+|\langle h^r_{n,m+1}}{d^r_{n,m}}_K|&\le c_2  |\langle h^r_{n,m}}{d^r_{n,m}}_K|.
 \end{flalign}
 \end{subequations}
 \item \textbf{Secant method:} The step lengths can be approximate minimizers of the function $\theta(s^u ,s^r):= J(u_n+s^u d^u_n,r_n+s^rd^r_n;x_0)$. For instance, letting $\sigma^u $ and $\sigma^r$ be some positive constants, an approximate minimizer of $\theta(s^u ,s^r)$ can be derived by using secant formula as
@@ -183,8 +183,8 @@ s^u =\frac{\theta_{s^u }(0,0)}{\theta_{s^u }(\sigma^u ,0)-\theta_{s^u }(0,0)},\;
 where the subscripts indicate partial derivatives. In the first iteration, the constants $\sigma^u $ and $\sigma^r$ are chosen arbitrary; in next iterations, they are set to the values of $s^u $ and $s^r$ found in the previous iteration \cite{herzog2010}. Accordingly, from the definition of $\theta(s^u ,s^r)$, and by arbitrary initializing $s^u_0$ and $s^r_0$, it follow that 
 \begin{subequations}
 \begin{flalign}\label{Numerics-eq-secant}
-s^u_n &=-\frac{\inn{h^u_n}{d^u_n}_U}{\inn{h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n}_U},\\ 
-s^r_n &=-\frac{\inn{h^r_n}{d^r_n}_K}{\inn{h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
+s^u_n &=-\frac{\langle h^u_n}{d^u_n \|_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n \|_U},\\ 
+s^r_n &=-\frac{\langle h^r_n}{d^r_n}_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
 \end{flalign}
 \end{subequations} 
 %\item \textbf{Hager-Zhang with guaranteed descent}:
@@ -211,7 +211,7 @@ Then, the approximated IVP and FVP are governed by
 \end{equation}
 For the optimality conditions, the operator $(\mc{B}'_{n,r}u)^*:X_{n}\to K_{n}$ is defined by a sesquilinear form
 \begin{equation}\label{Numerics-eq-sesquilinear}
-\inn{(\B'_{n,r}u)^*\pb}{r}_K=\inn{\pb}{(\B'_{n,r}r)u}, \quad \forall (u,\pb,r)\in  U_{n}\times X_{n}\times K_{n}.
+\langle (\B'_{n,r}u)^*\pb}{r}_K=\langle \pb}{(\B'_{n,r}r)u}, \quad \forall (u,\pb,r)\in  U_{n}\times X_{n}\times K_{n}.
 \end{equation}
 Then, letting $\mc R_n:= \mc R|_{X_{n}}$, the approximated optimality conditions are 
 \begin{flalign}
@@ -242,22 +242,22 @@ r_n
 \end{equation}
 \begin{equation}
 \xv_0:=\begin{bmatrix}
-\inn{x_0}{\bm{e}^X_1}\\
+\langle x_0}{\bm{e}^X_1}\\
 \vdots\\
-\inn{x_0}{\bm{e}^X_{n}}
+\langle x_0}{\bm{e}^X_{n}}
 \end{bmatrix}, \quad  F(\xv):=\begin{bmatrix}
-\inn{\F(x)}{\bm{e}^X_1}\\
+\langle \F(x)}{\bm{e}^X_1}\\
 \vdots\\
-\inn{\F(x)}{\bm{e}^X_{n}}
+\langle \F(x)}{\bm{e}^X_{n}}
 \end{bmatrix},
 \end{equation}
 and matrices $ A_n$, $ Q_n$, and ${dF}_n({\xv})$ with $i$th row and $j$th column, $i,j=1,..., {n_z}$, as
 \begin{equation}
-{A}_{ij}:=\inn{\A \bm{e}^X_j}{\bm{e}^X_i}, \quad {Q}_{ij}:=\inn{\mc Q \bm{e}^X_j}{\bm{e}^X_i}, \quad {dF}_{ij}(\xv):=\inn{\F'_{x}\bm{e}^X_j}{\bm{e}^X_i},
+{A}_{ij}:=\langle \A \bm{e}^X_j}{\bm{e}^X_i}, \quad {Q}_{ij}:=\langle \mc Q \bm{e}^X_j}{\bm{e}^X_i}, \quad {dF}_{ij}(\xv):=\langle \F'_{x}\bm{e}^X_j}{\bm{e}^X_i},
 \end{equation}
 matrix $ B(\rv)$ with $i=1,...,{n_z}$ and $j=1,...,{n_u}$ as
 \begin{equation}
-B_{ij}(\rv):=\inn{\B(r)\bm{e}^U_j}{\bm{e}^X_i} .
+B_{ij}(\rv):=\langle \B(r)\bm{e}^U_j}{\bm{e}^X_i} .
 \end{equation}
 The superscript $^*$ will denote conjugate transpose, $ A^*=\bar{ A}^T$. A finite-dimensional state-space representation of the approximated IVP and FVP is
 \begin{equation}\label{Numerics-eq-approximate IVP FVP}
@@ -269,7 +269,7 @@ The superscript $^*$ will denote conjugate transpose, $ A^*=\bar{ A}^T$. A finit
 
 Also, define the matrix $ R_n$ with $i,j=1,...,{n_u}$ as
 \begin{equation}
-{R}_{ij}:=\inn{\mc R \bm{e}^U_j}{\bm{e}^U_i},
+{R}_{ij}:=\langle \mc R \bm{e}^U_j}{\bm{e}^U_i},
 \end{equation}
 The optimality condition (\ref{Numerics-eq-duJ}) becomes 
 \begin{equation}\label{Numerics-eq-aproximate DuJ}
@@ -277,7 +277,7 @@ D_u J_n(\uv,\rv;\xv_0)= B^*(\rv)\pv(t)+ R\uv(t).
 \end{equation}
 To write the optimality condition (\ref{Numerics-eq-drJ}) in a vector form, use the sesquilinear form (\ref{Numerics-eq-sesquilinear}) together with Corollary 5.8 in \cite{edalatzadehSICON}, let $i=1,...,n_u$, $j=1,...,{n_r}$, and $k=1,...,{n_z}$, define the array ${dB}_{n}(\rv)$ as
 \begin{equation}
-{dB}_{ijk}(\rv)=\inn{b'_{i,r}e_j^\mathbb{K}}{e_k^\mathbb{Z}},
+{dB}_{ijk}(\rv)=\langle b'_{i,r}e_j^\mathbb{K}}{e_k^\mathbb{Z}},
 \end{equation}
 see \cite{edalatzadehSICON} for the definition of $b'_{j,r}$. 
 This optimality condition becomes

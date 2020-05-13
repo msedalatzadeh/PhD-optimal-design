@@ -134,13 +134,13 @@ The nonlinear conjugate gradient method reads as follows:
 
 \item \hspace*{0.5cm}Set $d^u_{n+1}:= h^u_{n+1}+\beta^u_{n+1}d^u_{n}$ and $d^r_{n+1}:= h^r_{n+1}+\beta^r_{n+1}d^r_{n}$
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^u_{n+1}}{h^u_{n+1}}_{L^2(0,T;U)}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\langle d^u_{n+1}}{h^u_{n+1}}_{L^2(0,T;U)}\le 0$ \textbf{then}
 
 \item \hspace*{1cm}Set $d^u_{n+1}=h^u_{n+1}$
 
 \item \hspace*{0.5cm}\textbf{end if}
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^r_{n+1}}{h^r_{n+1}}_{K}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\langle d^r_{n+1}}{h^r_{n+1}}_{K}\le 0$ \textbf{then}
 
 \item \hspace*{1cm}Set $d^r_{n+1}=h^r_{n+1}$
 
@@ -155,17 +155,17 @@ The nonlinear conjugate gradient method reads as follows:
 Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are considered for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$)
 
 \begin{flalign*}
-&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\norm{h^u_{n+1}}{U}}{\norm{h^u_n}{U}},\\
-&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\norm{h^u_n}{U}},\\
-&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\inn{d^u_n}{\gamma^u_{n+1}}_U}.
+&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\| h^u_{n+1}}{U}}{\| h^u_n}{U}},\\
+&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\| h^u_n}{U}},\\
+&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\langle d^u_n}{\gamma^u_{n+1} \rangle_U}.
 \end{flalign*}
 
 
 A new formula was also proposed by Hager and Zhang; define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
 
 \begin{flalign}
-\bar{\beta}^u_{n+1}&=\frac{\inn{\gamma^u_{n+1}-2\frac{\normm{\gamma^u_{n+1}}_U^2}{\inn{d^u_{n}}{\gamma^u_{n+1}}_U}d^u_n}{h^u_{n+1}}_U}{\inn{d^u_{n+1}}{\gamma^u_{n+1}}_U},\notag \\
-\eta^u_{n+1}&=-\frac{1}{\norm{d^u_n}{U}}\min\left\{0.01,\norm{h^u_n}{U}\right\}\notag.
+\bar{\beta}^u_{n+1}&=\frac{\langle \gamma^u_{n+1}-2\frac{\| \gamma^u_{n+1} \rangle_U^2}{\langle d^u_{n}}{\gamma^u_{n+1} \rangle_U}d^u_n}{h^u_{n+1} \|_U}{\langle d^u_{n+1}}{\gamma^u_{n+1} \rangle_U},\notag \\
+\eta^u_{n+1}&=-\frac{1}{\| d^u_n}{U}}\min\left\{0.01,\| h^u_n}{U}\right\}\notag.
 \end{flalign}
 
 Then, the formula is
@@ -184,17 +184,17 @@ then accept the step size; otherwise, set $s^u_{n,m+1}=\frac{1}{2}s^u_{n,m}$ and
 \item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$ and $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$ together with  $h^u_{n,m}=-D_u J(u_{n,m},r_{n,m};x_0)$ and $h^r_{n,m}=-D_r J(r_{n,m},r_{n,m};x_0)$. Iterate the step size $s^u_{n,m}$ and $s^r_{n,m}$ until the following conditions are met
 \begin{subequations}\label{Numerics-eq-curvature Wolfe}
 \begin{flalign}
-J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\inn{h^u_{n,m}}{d^u_{n}}_U\\
-&\quad +c_1s^r_{n,m}\inn{h^r_{n,m}}{d^r_{n}}_K\notag,\\
-\inn{h^u_{n,m}}{d^u_{n}}_U&\ge c_2  \inn{h^u_{n}}{d^u_{n}}_U,\\
-\inn{h^r_{n,m}}{d^r_{n}}_K&\ge c_2  \inn{h^r_{n}}{d^r_{n}}_K.
+J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\langle h^u_{n,m}}{d^u_{n} \rangle_U\\
+&\quad +c_1s^r_{n,m}\langle h^r_{n,m}}{d^r_{n}\rangle_K\notag,\\
+\langle h^u_{n,m}}{d^u_{n} \rangle_U&\ge c_2  \langle h^u_{n}}{d^u_{n} \rangle_U,\\
+\langle h^r_{n,m}}{d^r_{n} \rangle_K&\ge c_2  \langle h^r_{n}}{d^r_{n} \rangle_K.
 \end{flalign}
 \end{subequations}
 \item \textbf{Strong Wolfe conditions \cite[Section~3.1]{nocedal1999}:} Similar to Wolfe conditions except that condition (\ref{Numerics-eq-curvature Wolfe}) is replaced with
 \begin{subequations}
 \begin{flalign}
-|\inn{h^u_{n,m+1}}{d^u_{n,m}}_U|&\le c_2  |\inn{h^u_{n,m}}{d^u_{n,m}}_U|,\\
-|\inn{h^r_{n,m+1}}{d^r_{n,m}}_K|&\le c_2  |\inn{h^r_{n,m}}{d^r_{n,m}}_K|.
+|\langle h^u_{n,m+1}}{d^u_{n,m} \rangle_U|&\le c_2  |\langle h^u_{n,m}}{d^u_{n,m} \rangle_U|,\\
+|\langle h^r_{n,m+1}}{d^r_{n,m} \rangle_K|&\le c_2  |\langle h^r_{n,m}}{d^r_{n,m} \rangle_K|.
 \end{flalign}
 \end{subequations}
 \item \textbf{Secant method:} The step lengths can be approximate minimizers of the function $\theta(s^u ,s^r):= J(u_n+s^u d^u_n,r_n+s^rd^r_n;x_0)$. For instance, letting $\sigma^u $ and $\sigma^r$ be some positive constants, an approximate minimizer of $\theta(s^u ,s^r)$ can be derived by using secant formula as
@@ -204,8 +204,8 @@ s^u =\frac{\theta_{s^u }(0,0)}{\theta_{s^u }(\sigma^u ,0)-\theta_{s^u }(0,0)},\;
 where the subscripts indicate partial derivatives. In the first iteration, the constants $\sigma^u $ and $\sigma^r$ are chosen arbitrary; in next iterations, they are set to the values of $s^u $ and $s^r$ found in the previous iteration \cite{herzog2010}. Accordingly, from the definition of $\theta(s^u ,s^r)$, and by arbitrary initializing $s^u_0$ and $s^r_0$, it follow that 
 \begin{subequations}
 \begin{flalign}\label{Numerics-eq-secant}
-s^u_n &=-\frac{\inn{h^u_n}{d^u_n}_U}{\inn{h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n}_U},\\ 
-s^r_n &=-\frac{\inn{h^r_n}{d^r_n}_K}{\inn{h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
+s^u_n &=-\frac{\langle h^u_n}{d^u_n \rangle_U}{\langle h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n \|_U},\\ 
+s^r_n &=-\frac{\langle h^r_n}{d^r_n}_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
 \end{flalign}
 \end{subequations} 
 %\item \textbf{Hager-Zhang with guaranteed descent}:
