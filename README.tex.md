@@ -161,11 +161,13 @@ Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $
 \end{flalign*}
 
 
-A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
+A new formula was also proposed by Hager and Zhang; define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
+
 \begin{flalign}
 \bar{\beta}^u_{n+1}&=\frac{\inn{\gamma^u_{n+1}-2\frac{\normm{\gamma^u_{n+1}}_U^2}{\inn{d^u_{n}}{\gamma^u_{n+1}}_U}d^u_n}{h^u_{n+1}}_U}{\inn{d^u_{n+1}}{\gamma^u_{n+1}}_U},\notag \\
 \eta^u_{n+1}&=-\frac{1}{\norm{d^u_n}{U}}\min\left\{0.01,\norm{h^u_n}{U}\right\}\notag.
 \end{flalign}
+
 Then, the formula is
 \begin{equation}
 \text{Hager-Zhang:}\quad \beta^u_{n+1}=\max\left\{\bar{\beta}^u_{n+1},\eta^u_{n+1}\right\}
