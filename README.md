@@ -62,8 +62,16 @@ For every <img src="/tex/794c6f1b3b189816a9973dda0d498a24.svg?invert_in_darkmode
 
 
 ## Optimization Algorithms
-Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. This algorithm reads as follows:
+Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. 
 
-begin{algorithm}(Projected Gradient Method)
+### Projected Gradient Algorithm
+The projected gradient method reads as follows:
+
 <p align="center"><img src="/tex/d7666e1c8af0cbe5abd54154f96c2506.svg?invert_in_darkmode&sanitize=true" align=middle width=636.01678305pt height=307.3059396pt/></p>
-\end{algorithm}
+
+Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. 
+
+### Conjugate Gradient Algorithm
+The nonlinear conjugate gradient method reads as follows:
+
+<p align="center"><img src="/tex/7b7be02040242413e0e3052e57544f66.svg?invert_in_darkmode&sanitize=true" align=middle width=688.40251095pt height=700.9821951pt/></p>
