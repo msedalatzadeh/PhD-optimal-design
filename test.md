@@ -43,20 +43,20 @@ function $b(\xi;  r) $  is assumed continuously differentiable with respect to $
 In this section, we apply the results of previous sections to compute an optimal control and actuator location for the vibration suppression of the track. As discussed in chapter 3, the problem of finding the best control and actuator location is the optimization problem
 \begin{equation}
 \left\{ \begin{array}{ll}
-\min&J(\ub,\rb;\xb_0)\\
-\text{s.t.}&\dot{\xb}(t)=\mc{A}\xb(t)+\F(\xb(t))+\mc{B}(\rb)\ub(t), \quad \forall t\in(0,T],\\
-&\xb(0)=\xb_0
+\min&J(u,r;x_0)\\
+\text{s.t.}&\dot{x}(t)=\mc{A}x(t)+\F(x(t))+\mc{B}(r)u(t), \quad \forall t\in(0,T],\\
+&x(0)=x_0
 \end{array} \right. \tag{P} \label{Numerics-eq-optimal problem}
 \end{equation}
 The fitst order optimality conditions were derived in chapter 3. The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
 \begin{equation}\label{Numerics-eq-FVP}
-\dot{\pb}(t)=-(\mc{A}^*+\F'^*_{\xb(t)})\pb(t)-\mc{Q}\xb(t),\quad \pb(T)=0 \tag{FVP}
+\dot{\pb}(t)=-(\mc{A}^*+\F'^*_{x(t)})\pb(t)-\mc{Q}x(t),\quad \pb(T)=0 \tag{FVP}
 \end{equation}
-For every $\xb_0\in \ss$, the derivatives of the cost function with respect to $\ub$ and $\rb$ evaluated at $\ub\in \text{int}(U_{ad})$, $\rb\in \text{int}(K_{ad})$ are linear operators $D_\ub J(\ub,\rb;\xb_0)$ and $D_{\rb}J(\ub,\rb;\xb_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
+For every $x_0\in X$, the derivatives of the cost function with respect to $u$ and $r$ evaluated at $u\in \text{int}(U_{ad})$, $r\in \text{int}(K_{ad})$ are linear operators $D_u J(u,r;x_0)$ and $D_{r}J(u,r;x_0)$, respectively. Identifying each operator with an element of its underlying space, they are derived as
 \begin{subequations}
 \begin{flalign}
-D_\ub J(\ub,\rb;\xb_0)&=\B^*(\rb)\pb(t)+\mc{R} \ub(t),\label{Numerics-eq-duJ}\\
-D_{\rb}J(\ub,\rb,\xb_0)&=\int_0^T(\B'_{\rb}\ub(s))^*\pb(s)\, ds.\label{Numerics-eq-drJ}
+D_u J(u,r;x_0)&=\B^*(r)\pb(t)+\mc{R} u(t),\label{Numerics-eq-duJ}\\
+D_{r}J(u,r,x_0)&=\int_0^T(\B'_{r}u(s))^*\pb(s)\, ds.\label{Numerics-eq-drJ}
 \end{flalign}
 \end{subequations}
 
@@ -75,14 +75,14 @@ D_{\rb}J(\ub,\rb,\xb_0)&=\int_0^T(\B'_{\rb}\ub(s))^*\pb(s)\, ds.\label{Numerics-
 Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems, see \cite{herzog2010}. In this section, two common optimization algorithms for solving \ref{Numerics-eq-optimal problem} will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. This algorithm reads as follows:
 \begin{alg}(Projected Gradient Method)
 \begin{enumerate}
-\item \textbf{input} initial guesses $\ub_1\in U_{ad}$ and $\rb_1\in K_{ad}$
+\item \textbf{input} initial guesses $u_1\in U_{ad}$ and $r_1\in K_{ad}$
 \item Set $n=1$
 \item \textbf{while} a criteria is met \textbf{do}
-\item \hspace*{0.5cm}Solve the IVP with $\ub_n$ and $\rb_n$, and find $\xb_n$
-\item \hspace*{0.5cm}Solve the FVP with $\xb_n$, and find $\pb_n$
-\item \hspace*{0.5cm}Evaluate $d^\ub_n\coloneqq -D_\ub J(\ub_n,\rb_n,\xb_0) $ and $d^\rb_n\coloneqq-D_{\rb}J(\ub_n,\rb_n;\xb_0)$ from \hspace*{0.5cm}(\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
-\item \hspace*{0.5cm}Obtain step lengths $s^\ub_n$ and $s^\rb_n$ by one of the line search methods discussed below  
-\item \hspace*{0.5cm}Set $\ub_{n+1}=\ub_n+s_n^\ub d_n^\ub $ and $\rb_{n+1}=\rb_n+s_n^rd_n^\rb$
+\item \hspace*{0.5cm}Solve the IVP with $u_n$ and $r_n$, and find $x_n$
+\item \hspace*{0.5cm}Solve the FVP with $x_n$, and find $\pb_n$
+\item \hspace*{0.5cm}Evaluate $d^u_n:= -D_u J(u_n,r_n,x_0) $ and $d^r_n:=-D_{r}J(u_n,r_n;x_0)$ from \hspace*{0.5cm}(\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
+\item \hspace*{0.5cm}Obtain step lengths $s^u_n$ and $s^r_n$ by one of the line search methods discussed below  
+\item \hspace*{0.5cm}Set $u_{n+1}=u_n+s_n^u d_n^u $ and $r_{n+1}=r_n+s_n^rd_n^r$
 \item \hspace*{0.5cm}increase $n$
 \item \textbf{end while}
 \end{enumerate}
@@ -90,41 +90,41 @@ Several optimization algorithms were suggested in the literature for solving PDE
 Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. The nonlinear conjugate gradient method reads as follows:
 \begin{alg}(Nonlinear Conjugate Gradient Method)
 \begin{enumerate}
-\item \textbf{input} initial guesses $\ub_1\in U_{ad}$ and $\rb_1\in K_{ad}$
+\item \textbf{input} initial guesses $u_1\in U_{ad}$ and $r_1\in K_{ad}$
 
 \item Set $n=1$
 
-\item Set $d^\ub_n= h^\ub_n\coloneqq -D_\ub J(\ub_n,\rb_n,\xb_0)$ and $d^\rb_n= h^\rb_n\coloneqq-D_{\rb}J(\ub_n,\rb_n;\xb_0)$
+\item Set $d^u_n= h^u_n:= -D_u J(u_n,r_n,x_0)$ and $d^r_n= h^r_n:=-D_{r}J(u_n,r_n;x_0)$
 
 \item \textbf{while} a criteria is met \textbf{do}
 
-\item \hspace*{0.5cm}Solve the IVP for $\ub_n$ and $\rb_n$, and find $\xb_n$
+\item \hspace*{0.5cm}Solve the IVP for $u_n$ and $r_n$, and find $x_n$
 
-\item \hspace*{0.5cm}Solve the FVP for $\xb_n$, and find $\pb_n$
+\item \hspace*{0.5cm}Solve the FVP for $x_n$, and find $\pb_n$
 
-\item \hspace*{0.5cm}Obtain step lengths $s^\ub_n$ and $s^\rb_n$ using, e.g., secant method in (\ref{Numerics-eq-secant})
+\item \hspace*{0.5cm}Obtain step lengths $s^u_n$ and $s^r_n$ using, e.g., secant method in (\ref{Numerics-eq-secant})
 
-\item \hspace*{0.5cm}Set $\ub_{n+1}=\ub_n+s_n^\ub d_n^\ub $ and $\rb_{n+1}=\rb_n+s_n^\rb d_n^\rb$
+\item \hspace*{0.5cm}Set $u_{n+1}=u_n+s_n^u d_n^u $ and $r_{n+1}=r_n+s_n^r d_n^r$
 
-\item \hspace*{0.5cm}Solve the IVP for $\ub_{n+1}$ and $\rb_{n+1}$, and find $\xb_{n+1}$
+\item \hspace*{0.5cm}Solve the IVP for $u_{n+1}$ and $r_{n+1}$, and find $x_{n+1}$
 
-\item \hspace*{0.5cm}Solve the FVP for $\xb_{n+1}$, and find $\pb_{n+1}$
+\item \hspace*{0.5cm}Solve the FVP for $x_{n+1}$, and find $\pb_{n+1}$
 
-\item \hspace*{0.5cm}Evaluate $h^\ub_{n+1}\coloneqq -D_\ub J(\ub_{n+1},\rb_{n+1},\xb_0) $ and $h^\rb_{n+1}\coloneqq-D_{\rb}J(\ub_{n+1},\rb_{n+1};\xb_0)$ \hspace*{0.5cm}from (\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
+\item \hspace*{0.5cm}Evaluate $h^u_{n+1}:= -D_u J(u_{n+1},r_{n+1},x_0) $ and $h^r_{n+1}:=-D_{r}J(u_{n+1},r_{n+1};x_0)$ \hspace*{0.5cm}from (\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ})
 
-\item \hspace*{0.5cm}Determine step lengths $\beta^\ub_{n+1}$ and $\beta^\rb_{n+1}$ using, e.g., Fletcher-Reeves \hspace*{0.5cm}or Polak-Ribi\`ere formula \cite[Section~5.2]{nocedal1999}
+\item \hspace*{0.5cm}Determine step lengths $\beta^u_{n+1}$ and $\beta^r_{n+1}$ using, e.g., Fletcher-Reeves \hspace*{0.5cm}or Polak-Ribi\`ere formula \cite[Section~5.2]{nocedal1999}
 
-\item \hspace*{0.5cm}Set $d^\ub_{n+1}\coloneqq h^\ub_{n+1}+\beta^\ub_{n+1}d^\ub_{n}$ and $d^\rb_{n+1}\coloneqq h^\rb_{n+1}+\beta^\rb_{n+1}d^\rb_{n}$
+\item \hspace*{0.5cm}Set $d^u_{n+1}:= h^u_{n+1}+\beta^u_{n+1}d^u_{n}$ and $d^r_{n+1}:= h^r_{n+1}+\beta^r_{n+1}d^r_{n}$
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^\ub_{n+1}}{h^\ub_{n+1}}_{L^2(0,T;\cs)}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\inn{d^u_{n+1}}{h^u_{n+1}}_{L^2(0,T;U)}\le 0$ \textbf{then}
 
-\item \hspace*{1cm}Set $d^\ub_{n+1}=h^\ub_{n+1}$
+\item \hspace*{1cm}Set $d^u_{n+1}=h^u_{n+1}$
 
 \item \hspace*{0.5cm}\textbf{end if}
 
-\item \hspace*{0.5cm}\textbf{if} $\inn{d^\rb_{n+1}}{h^\rb_{n+1}}_{\as}\le 0$ \textbf{then}
+\item \hspace*{0.5cm}\textbf{if} $\inn{d^r_{n+1}}{h^r_{n+1}}_{K}\le 0$ \textbf{then}
 
-\item \hspace*{1cm}Set $d^\rb_{n+1}=h^\rb_{n+1}$
+\item \hspace*{1cm}Set $d^r_{n+1}=h^r_{n+1}$
 
 \item \hspace*{0.5cm}\textbf{end if}
 
@@ -134,57 +134,57 @@ Projected gradient method is typically converging to an optimizer slowly, wherea
 \end{enumerate}
 \end{alg}
 
-Several choices exist for selecting the step length $\beta^\ub_{n+1}$ (similarly $\beta^\rb_{n+1}$) of the previous algorithm \cite{hager2006survey}. Letting $\gamma^\ub_{n+1}=h^\ub_{n+1}-h^\ub_n$, the following are for selecting the step length $\beta^\ub_{n+1}$ (similarly $\beta^\rb_{n+1}$) considered in this paper
+Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm \cite{hager2006survey}. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) considered in this paper
 \begin{subequations}
 \begin{flalign}
-&\text{Fletcher-Reeves:} \quad \beta^\ub_{n+1}=\frac{\norm{h^\ub_{n+1}}{\cs}}{\norm{h^\ub_n}{\cs}},\\
-&\text{Polan-Ribi\`ere:} \quad \beta^\ub_{n+1}=\frac{\inn{h^\ub_{n+1}}{\gamma^\ub_{n+1}}_\cs}{\norm{h^\ub_n}{\cs}},\\
-&\text{Hestenes-Stiefel:} \quad  \beta^\ub_{n+1}=\frac{\inn{h^\ub_{n+1}}{\gamma^\ub_{n+1}}_\cs}{\inn{d^\ub_n}{\gamma^\ub_{n+1}}_\cs}.
+&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\norm{h^u_{n+1}}{U}}{\norm{h^u_n}{U}},\\
+&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\norm{h^u_n}{U}},\\
+&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\inn{h^u_{n+1}}{\gamma^u_{n+1}}_U}{\inn{d^u_n}{\gamma^u_{n+1}}_U}.
 \end{flalign}
 \end{subequations}
-A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define $\bar{\beta}^\ub_{n+1}$ and $\eta^\ub_{n+1}$ as
+A new formula was also proposed by Hager and Zhang \cite{hager2005new}. Define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
 \begin{flalign}
-\bar{\beta}^\ub_{n+1}&=\frac{\inn{\gamma^\ub_{n+1}-2\frac{\normm{\gamma^\ub_{n+1}}_\cs^2}{\inn{d^\ub_{n}}{\gamma^\ub_{n+1}}_\cs}d^\ub_n}{h^\ub_{n+1}}_\cs}{\inn{d^\ub_{n+1}}{\gamma^\ub_{n+1}}_\cs},\notag \\
-\eta^\ub_{n+1}&=-\frac{1}{\norm{d^\ub_n}{\cs}}\min\left\{0.01,\norm{h^\ub_n}{\cs}\right\}\notag.
+\bar{\beta}^u_{n+1}&=\frac{\inn{\gamma^u_{n+1}-2\frac{\normm{\gamma^u_{n+1}}_U^2}{\inn{d^u_{n}}{\gamma^u_{n+1}}_U}d^u_n}{h^u_{n+1}}_U}{\inn{d^u_{n+1}}{\gamma^u_{n+1}}_U},\notag \\
+\eta^u_{n+1}&=-\frac{1}{\norm{d^u_n}{U}}\min\left\{0.01,\norm{h^u_n}{U}\right\}\notag.
 \end{flalign}
 Then, the formula is
 \begin{equation}
-\text{Hager-Zhang:}\quad \beta^\ub_{n+1}=\max\left\{\bar{\beta}^\ub_{n+1},\eta^\ub_{n+1}\right\}
+\text{Hager-Zhang:}\quad \beta^u_{n+1}=\max\left\{\bar{\beta}^u_{n+1},\eta^u_{n+1}\right\}
 \end{equation}
 
-Furthermore, several schemes have been proposed to choose the step length $s^\ub_n$ (similarly $s^\rb_n$) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
+Furthermore, several schemes have been proposed to choose the step length $s^u_n$ (similarly $s^r_n$) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
 %, and Hager-Zhang with guaranteed descent.
 \begin{enumerate}
-\item \textbf{Bisection \cite{buchholz2013}:} In each iteration $n$ of the algorithms, initialize $s^\ub_{n,1}$ and $s^\rb_{n,1}$. Set $m=1$. Compute $\ub_{n,m}=\ub_{n}+s^\ub_{n,m} d^\ub_{n}$, $\rb_{n,m}=\rb_{n}+s^\rb_{n,m} d^\rb_{n}$, and $J(\ub_{n,m},\rb_{n,m};\xb_0)$. If
+\item \textbf{Bisection \cite{buchholz2013}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$, $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$, and $J(u_{n,m},r_{n,m};x_0)$. If
 \begin{equation}
-J(\ub_{n,m},\rb_{n,m};\xb_0)\le J(\ub_{n},\rb_n;\xb_0),
+J(u_{n,m},r_{n,m};x_0)\le J(u_{n},r_n;x_0),
 \end{equation}
-then accept the step size; otherwise, set $s^\ub_{n,m+1}=\frac{1}{2}s^\ub_{n,m}$ and $s^\rb_{n,m+1}=\frac{1}{2}s^\rb_{n,m}$ and repeat the process.
-\item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^\ub_{n,1}$ and $s^\rb_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $\ub_{n,m}=\ub_{n}+s^\ub_{n,m} d^\ub_{n}$ and $\rb_{n,m}=\rb_{n}+s^\rb_{n,m} d^\rb_{n}$ together with  $h^\ub_{n,m}=-D_\ub J(\ub_{n,m},\rb_{n,m};\xb_0)$ and $h^\rb_{n,m}=-D_\rb J(\rb_{n,m},\rb_{n,m};\xb_0)$. Iterate the step size $s^\ub_{n,m}$ and $s^\rb_{n,m}$ until the following conditions are met
+then accept the step size; otherwise, set $s^u_{n,m+1}=\frac{1}{2}s^u_{n,m}$ and $s^r_{n,m+1}=\frac{1}{2}s^r_{n,m}$ and repeat the process.
+\item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$ and $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$ together with  $h^u_{n,m}=-D_u J(u_{n,m},r_{n,m};x_0)$ and $h^r_{n,m}=-D_r J(r_{n,m},r_{n,m};x_0)$. Iterate the step size $s^u_{n,m}$ and $s^r_{n,m}$ until the following conditions are met
 \begin{subequations}\label{Numerics-eq-curvature Wolfe}
 \begin{flalign}
-J(\ub_{n,m},\rb_n;\xb_0)&\le J(\ub_{n},\rb_n;\xb_0)+c_1s^\ub_{n,m}\inn{h^\ub_{n,m}}{d^\ub_{n}}_\cs\\
-&\quad +c_1s^\rb_{n,m}\inn{h^\rb_{n,m}}{d^\rb_{n}}_\as\notag,\\
-\inn{h^\ub_{n,m}}{d^\ub_{n}}_\cs&\ge c_2  \inn{h^\ub_{n}}{d^\ub_{n}}_\cs,\\
-\inn{h^\rb_{n,m}}{d^\rb_{n}}_\as&\ge c_2  \inn{h^\rb_{n}}{d^\rb_{n}}_\as.
+J(u_{n,m},r_n;x_0)&\le J(u_{n},r_n;x_0)+c_1s^u_{n,m}\inn{h^u_{n,m}}{d^u_{n}}_U\\
+&\quad +c_1s^r_{n,m}\inn{h^r_{n,m}}{d^r_{n}}_K\notag,\\
+\inn{h^u_{n,m}}{d^u_{n}}_U&\ge c_2  \inn{h^u_{n}}{d^u_{n}}_U,\\
+\inn{h^r_{n,m}}{d^r_{n}}_K&\ge c_2  \inn{h^r_{n}}{d^r_{n}}_K.
 \end{flalign}
 \end{subequations}
 \item \textbf{Strong Wolfe conditions \cite[Section~3.1]{nocedal1999}:} Similar to Wolfe conditions except that condition (\ref{Numerics-eq-curvature Wolfe}) is replaced with
 \begin{subequations}
 \begin{flalign}
-|\inn{h^\ub_{n,m+1}}{d^\ub_{n,m}}_\cs|&\le c_2  |\inn{h^\ub_{n,m}}{d^\ub_{n,m}}_\cs|,\\
-|\inn{h^\rb_{n,m+1}}{d^\rb_{n,m}}_\as|&\le c_2  |\inn{h^\rb_{n,m}}{d^\rb_{n,m}}_\as|.
+|\inn{h^u_{n,m+1}}{d^u_{n,m}}_U|&\le c_2  |\inn{h^u_{n,m}}{d^u_{n,m}}_U|,\\
+|\inn{h^r_{n,m+1}}{d^r_{n,m}}_K|&\le c_2  |\inn{h^r_{n,m}}{d^r_{n,m}}_K|.
 \end{flalign}
 \end{subequations}
-\item \textbf{Secant method:} The step lengths can be approximate minimizers of the function $\theta(s^\ub ,s^\rb)\coloneqq J(\ub_n+s^\ub d^\ub_n,\rb_n+s^rd^\rb_n;\xb_0)$. For instance, letting $\sigma^\ub $ and $\sigma^\rb$ be some positive constants, an approximate minimizer of $\theta(s^\ub ,s^\rb)$ can be derived by using secant formula as
+\item \textbf{Secant method:} The step lengths can be approximate minimizers of the function $\theta(s^u ,s^r):= J(u_n+s^u d^u_n,r_n+s^rd^r_n;x_0)$. For instance, letting $\sigma^u $ and $\sigma^r$ be some positive constants, an approximate minimizer of $\theta(s^u ,s^r)$ can be derived by using secant formula as
 \begin{equation}
-s^\ub =\frac{\theta_{s^\ub }(0,0)}{\theta_{s^\ub }(\sigma^\ub ,0)-\theta_{s^\ub }(0,0)},\; s^\rb=\frac{\theta_{s^\rb}(0,0)}{\theta_{s^\rb}(0,\sigma^\rb)-\theta_{s^\rb}(0,0)},
+s^u =\frac{\theta_{s^u }(0,0)}{\theta_{s^u }(\sigma^u ,0)-\theta_{s^u }(0,0)},\; s^r=\frac{\theta_{s^r}(0,0)}{\theta_{s^r}(0,\sigma^r)-\theta_{s^r}(0,0)},
 \end{equation}
-where the subscripts indicate partial derivatives. In the first iteration, the constants $\sigma^\ub $ and $\sigma^\rb$ are chosen arbitrary; in next iterations, they are set to the values of $s^\ub $ and $s^\rb$ found in the previous iteration \cite{herzog2010}. Accordingly, from the definition of $\theta(s^\ub ,s^\rb)$, and by arbitrary initializing $s^\ub_0$ and $s^\rb_0$, it follow that 
+where the subscripts indicate partial derivatives. In the first iteration, the constants $\sigma^u $ and $\sigma^r$ are chosen arbitrary; in next iterations, they are set to the values of $s^u $ and $s^r$ found in the previous iteration \cite{herzog2010}. Accordingly, from the definition of $\theta(s^u ,s^r)$, and by arbitrary initializing $s^u_0$ and $s^r_0$, it follow that 
 \begin{subequations}
 \begin{flalign}\label{Numerics-eq-secant}
-s^\ub_n &=-\frac{\inn{h^\ub_n}{d^\ub_n}_\cs}{\inn{h^\ub_n+D_\ub J(\ub_n+s^\ub_{n-1} d^\ub_n,\rb_n;\xb_0)}{d^\ub_n}_\cs},\\ 
-s^\rb_n &=-\frac{\inn{h^\rb_n}{d^\rb_n}_\as}{\inn{h^\rb_n+D_\rb J(\ub_n,\rb_n+s^\rb_{n-1} d^\rb_n;\xb_0)}{d^\ub_n}_\as}.
+s^u_n &=-\frac{\inn{h^u_n}{d^u_n}_U}{\inn{h^u_n+D_u J(u_n+s^u_{n-1} d^u_n,r_n;x_0)}{d^u_n}_U},\\ 
+s^r_n &=-\frac{\inn{h^r_n}{d^r_n}_K}{\inn{h^r_n+D_r J(u_n,r_n+s^r_{n-1} d^r_n;x_0)}{d^u_n}_K}.
 \end{flalign}
 \end{subequations} 
 %\item \textbf{Hager-Zhang with guaranteed descent}:
@@ -192,72 +192,72 @@ s^\rb_n &=-\frac{\inn{h^\rb_n}{d^\rb_n}_\as}{\inn{h^\rb_n+D_\rb J(\ub_n,\rb_n+s^
 
 
 ## Approximation Scheme
-In each iteration, the IVP and FVP are solved numerically. To find a numerical solution to the IVP and FVP, a finite-dimensional approximation is needed. Let $n_z$, $n_u$, and $n_r$ indicate the dimension of finite-dimensional subspaces of $\ss$, $\cs$, and $\as $, respectively.
-To avoid multiple subscripts, let $n=[n_z,n_u,n_r]$, and denote the subspaces by $\ss_n$, $\cs_n$, and $\as_n$. 
+In each iteration, the IVP and FVP are solved numerically. To find a numerical solution to the IVP and FVP, a finite-dimensional approximation is needed. Let $n_z$, $n_u$, and $n_r$ indicate the dimension of finite-dimensional subspaces of $X$, $U$, and $K $, respectively.
+To avoid multiple subscripts, let $n=[n_z,n_u,n_r]$, and denote the subspaces by $X_n$, $U_n$, and $K_n$. 
 %a set of bases for the underlying spaces is needed. 
 %Consider finite-dimensional approximation 
 %Consider only a finite number of the bases, let $n_{z}$, $n_{u}$, and $n_r$ be natural numbers, and use $n=[n_z,n_u,n_r]$ to indicate a finite-dimensional component.  
-%use $i=1,...,n_z$, and $j=1,...,n_u$, $k=1,...,n_r$ to enumerate the bases. Let $\bm{e}^\ss_i$, $\bm{e}^\cs_j$, and $\bm{e}^\as_k$ denote the orthonormal bases of $\ss$, $\cs$, and $\as$, respectively. Let $\ss_{n_z}$, $\cs_{n_u}$, and $\as_{n_r}$ be subspaces spanned by all $\bm{e}^\ss_i$, $\bm{e}^\cs_j$, and $\bm{e}^\as_k$, respectively. 
-Also, let $\proj_{z}:\ss\to \ss_{n}$, $\proj_{u}:\cs\to\cs_{n}$, and $\proj_{r}:\as \to \as_{n}$ be the projection of $\ss$, $\cs $, and $\as $ onto $\ss_{n}$, $\cs_{n}$, and $\as_{n}$, respectively. Define sets $K_{ad,n}$ and $U_{ad,n}$ in a similar way. For every $\rb\in K_{ad,n}$, consider the finite-dimensional linear operators $\A_n\in \mc{L}(\ss_{n})$ and $\B_n(r) \in \mc{L}(\cs_{n},\ss_{n})$, and $\mc Q_n\coloneqq \mc Q|_{\ss_{n}}$.
+%use $i=1,...,n_z$, and $j=1,...,n_u$, $k=1,...,n_r$ to enumerate the bases. Let $\bm{e}^X_i$, $\bm{e}^U_j$, and $\bm{e}^K_k$ denote the orthonormal bases of $X$, $U$, and $K$, respectively. Let $X_{n_z}$, $U_{n_u}$, and $K_{n_r}$ be subspaces spanned by all $\bm{e}^X_i$, $\bm{e}^U_j$, and $\bm{e}^K_k$, respectively. 
+Also, let $\proj_{z}:X\to X_{n}$, $\proj_{u}:U\toU_{n}$, and $\proj_{r}:K \to K_{n}$ be the projection of $X$, $U $, and $K $ onto $X_{n}$, $U_{n}$, and $K_{n}$, respectively. Define sets $K_{ad,n}$ and $U_{ad,n}$ in a similar way. For every $r\in K_{ad,n}$, consider the finite-dimensional linear operators $\A_n\in \mc{L}(X_{n})$ and $\B_n(r) \in \mc{L}(U_{n},X_{n})$, and $\mc Q_n:= \mc Q|_{X_{n}}$.
 
-There are different techniques to handle the nonlinear operators  $\F(\cdot)$, $\F'_{\cdot}$, $\B(\cdot)$, and $\B'_{\cdot}$. A common way is to approximate the nonlinear operator $\F(\cdot)$ with an operator $\F_n(\cdot)$ that coincides with $\F(\cdot)$ on $\ss_{n}$. The operators $\F'_{\cdot}$, $\B(\cdot)$, and $\B'_{\cdot}$ can be approximated in similar ways. 
+There are different techniques to handle the nonlinear operators  $\F(\cdot)$, $\F'_{\cdot}$, $\B(\cdot)$, and $\B'_{\cdot}$. A common way is to approximate the nonlinear operator $\F(\cdot)$ with an operator $\F_n(\cdot)$ that coincides with $\F(\cdot)$ on $X_{n}$. The operators $\F'_{\cdot}$, $\B(\cdot)$, and $\B'_{\cdot}$ can be approximated in similar ways. 
 
 Then, the approximated IVP and FVP are governed by
 \begin{equation}\label{Numerics-eq-truncated}
 \begin{array}{ll}
-\dot{\xb}(t)=\A_n\xb(t)+\F_n(\xb(t))+\B_n(\rb)\ub(t), & \xb(0)=\xb_{n0}\coloneqq\proj_{n}\xb_0,\\[2mm]
-\dot{\pb}(t)=-(\A_n^*+\F'^*_{n,\xb(t)})\pb(t)-\mc Q_n\xb(t), & \pb(T)=0.
+\dot{x}(t)=\A_nx(t)+\F_n(x(t))+\B_n(r)u(t), & x(0)=x_{n0}:=\proj_{n}x_0,\\[2mm]
+\dot{\pb}(t)=-(\A_n^*+\F'^*_{n,x(t)})\pb(t)-\mc Q_nx(t), & \pb(T)=0.
 \end{array}
 \end{equation}
-For the optimality conditions, the operator $(\mc{B}'_{n,\rb}\ub)^*:\ss_{n}\to \as_{n}$ is defined by a sesquilinear form
+For the optimality conditions, the operator $(\mc{B}'_{n,r}u)^*:X_{n}\to K_{n}$ is defined by a sesquilinear form
 \begin{equation}\label{Numerics-eq-sesquilinear}
-\inn{(\B'_{n,\rb}\ub)^*\pb}{\rb}_\as=\inn{\pb}{(\B'_{n,\rb}\rb)\ub}, \quad \forall (\ub,\pb,\rb)\in  \cs_{n}\times \ss_{n}\times \as_{n}.
+\inn{(\B'_{n,r}u)^*\pb}{r}_K=\inn{\pb}{(\B'_{n,r}r)u}, \quad \forall (u,\pb,r)\in  U_{n}\times X_{n}\times K_{n}.
 \end{equation}
-Then, letting $\mc R_n\coloneqq \mc R|_{\ss_{n}}$, the approximated optimality conditions are 
+Then, letting $\mc R_n:= \mc R|_{X_{n}}$, the approximated optimality conditions are 
 \begin{flalign}
-D_\ub J_n(\ub,\rb;\xb_{n0})&=\B_n^*(\rb)\pb(t)+\mc{R}_n \ub(t),\label{Numerics-eq-duJ}\\
-D_{\rb}J_n(\ub,\rb,\xb_{n0})&=\int_0^T(\B'_{n,\rb}\ub(s))^*\pb(s)\, ds.\label{Numerics-eq-drJ}
+D_u J_n(u,r;x_{n0})&=\B_n^*(r)\pb(t)+\mc{R}_n u(t),\label{Numerics-eq-duJ}\\
+D_{r}J_n(u,r,x_{n0})&=\int_0^T(\B'_{n,r}u(s))^*\pb(s)\, ds.\label{Numerics-eq-drJ}
 \end{flalign}
 These operators should satisfy a set of assumption to be qualified as an approximation of the operators in the original system. Assumptions A1-A3 in \cite{morris2011linear} ensures this for a linear system with infinite horizon cost function.
 
-By means of a basis for the underlying spaces, the approximation can be fully realized. This yields an approximation that satisfies assumptions A1-A3 in \cite{morris2011linear}. Using $i\in \mathbb{N}_n$ to enumerate the bases, let $\bm{e}^\ss_i$, $\bm{e}^\cs_i$, and $\bm{e}^\as_i$ denote orthonormal bases of $\ss$, $\cs$, and $\as$, respectively. It is assumed that $\bm{e}^\ss_i\in D(\A)$ for all $i\in \mathbb{N}_n$. Denoted by $x_i$ and $p_i$ are projections of the state $\xb$ and adjoint state $\pb$ onto the one-dimensional subspaces spanned by $\bm{e}^\ss_i$. Define $u_i$ and $r_i$ in a similar way. Consider the vectors $\xv$, $\uv$, $\rv$, and $ F(\xv)$ as
+By means of a basis for the underlying spaces, the approximation can be fully realized. This yields an approximation that satisfies assumptions A1-A3 in \cite{morris2011linear}. Using $i\in \mathbb{N}_n$ to enumerate the bases, let $\bm{e}^X_i$, $\bm{e}^U_i$, and $\bm{e}^K_i$ denote orthonormal bases of $X$, $U$, and $K$, respectively. It is assumed that $\bm{e}^X_i\in D(\A)$ for all $i\in \mathbb{N}_n$. Denoted by $x_i$ and $p_i$ are projections of the state $x$ and adjoint state $\pb$ onto the one-dimensional subspaces spanned by $\bm{e}^X_i$. Define $u_i$ and $r_i$ in a similar way. Consider the vectors $\xv$, $\uv$, $\rv$, and $ F(\xv)$ as
 \begin{equation}
-\xv\coloneqq\begin{bmatrix}
+\xv:=\begin{bmatrix}
 x_1\\
 \vdots\\
 x_{n}
-\end{bmatrix}, \quad \pv\coloneqq\begin{bmatrix}
+\end{bmatrix}, \quad \pv:=\begin{bmatrix}
 p_1\\
 \vdots\\
 p_n
-\end{bmatrix}, \quad \uv\coloneqq \begin{bmatrix}
+\end{bmatrix}, \quad \uv:= \begin{bmatrix}
 u_1\\
 \vdots\\
 u_n
-\end{bmatrix}, \quad \rv\coloneqq \begin{bmatrix}
+\end{bmatrix}, \quad \rv:= \begin{bmatrix}
 r_1\\
 \vdots\\
 r_n
 \end{bmatrix}
 \end{equation}
 \begin{equation}
-\xv_0\coloneqq\begin{bmatrix}
-\inn{\xb_0}{\bm{e}^\ss_1}\\
+\xv_0:=\begin{bmatrix}
+\inn{x_0}{\bm{e}^X_1}\\
 \vdots\\
-\inn{\xb_0}{\bm{e}^\ss_{n}}
-\end{bmatrix}, \quad  F(\xv)\coloneqq\begin{bmatrix}
-\inn{\F(\xb)}{\bm{e}^\ss_1}\\
+\inn{x_0}{\bm{e}^X_{n}}
+\end{bmatrix}, \quad  F(\xv):=\begin{bmatrix}
+\inn{\F(x)}{\bm{e}^X_1}\\
 \vdots\\
-\inn{\F(\xb)}{\bm{e}^\ss_{n}}
+\inn{\F(x)}{\bm{e}^X_{n}}
 \end{bmatrix},
 \end{equation}
 and matrices $ A_n$, $ Q_n$, and ${dF}_n({\xv})$ with $i$th row and $j$th column, $i,j=1,..., {n_z}$, as
 \begin{equation}
-{A}_{ij}\coloneqq\inn{\A \bm{e}^\ss_j}{\bm{e}^\ss_i}, \quad {Q}_{ij}\coloneqq\inn{\mc Q \bm{e}^\ss_j}{\bm{e}^\ss_i}, \quad {dF}_{ij}(\xv)\coloneqq\inn{\F'_{\xb}\bm{e}^\ss_j}{\bm{e}^\ss_i},
+{A}_{ij}:=\inn{\A \bm{e}^X_j}{\bm{e}^X_i}, \quad {Q}_{ij}:=\inn{\mc Q \bm{e}^X_j}{\bm{e}^X_i}, \quad {dF}_{ij}(\xv):=\inn{\F'_{x}\bm{e}^X_j}{\bm{e}^X_i},
 \end{equation}
 matrix $ B(\rv)$ with $i=1,...,{n_z}$ and $j=1,...,{n_u}$ as
 \begin{equation}
-B_{ij}(\rv)\coloneqq\inn{\B(\rb)\bm{e}^\cs_j}{\bm{e}^\ss_i} .
+B_{ij}(\rv):=\inn{\B(r)\bm{e}^U_j}{\bm{e}^X_i} .
 \end{equation}
 The superscript $^*$ will denote conjugate transpose, $ A^*=\bar{ A}^T$. A finite-dimensional state-space representation of the approximated IVP and FVP is
 \begin{equation}\label{Numerics-eq-approximate IVP FVP}
@@ -269,24 +269,24 @@ The superscript $^*$ will denote conjugate transpose, $ A^*=\bar{ A}^T$. A finit
 
 Also, define the matrix $ R_n$ with $i,j=1,...,{n_u}$ as
 \begin{equation}
-{R}_{ij}\coloneqq\inn{\mc R \bm{e}^\cs_j}{\bm{e}^\cs_i},
+{R}_{ij}:=\inn{\mc R \bm{e}^U_j}{\bm{e}^U_i},
 \end{equation}
 The optimality condition (\ref{Numerics-eq-duJ}) becomes 
 \begin{equation}\label{Numerics-eq-aproximate DuJ}
-D_\ub J_n(\uv,\rv;\xv_0)= B^*(\rv)\pv(t)+ R\uv(t).
+D_u J_n(\uv,\rv;\xv_0)= B^*(\rv)\pv(t)+ R\uv(t).
 \end{equation}
 To write the optimality condition (\ref{Numerics-eq-drJ}) in a vector form, use the sesquilinear form (\ref{Numerics-eq-sesquilinear}) together with Corollary 5.8 in \cite{edalatzadehSICON}, let $i=1,...,n_u$, $j=1,...,{n_r}$, and $k=1,...,{n_z}$, define the array ${dB}_{n}(\rv)$ as
 \begin{equation}
-{dB}_{ijk}(\rv)=\inn{b'_{i,\rb}e_j^\mathbb{K}}{e_k^\mathbb{Z}},
+{dB}_{ijk}(\rv)=\inn{b'_{i,r}e_j^\mathbb{K}}{e_k^\mathbb{Z}},
 \end{equation}
-see \cite{edalatzadehSICON} for the definition of $b'_{j,\rb}$. 
+see \cite{edalatzadehSICON} for the definition of $b'_{j,r}$. 
 This optimality condition becomes
 \begin{flalign}\label{Numerics-eq-approximate DrJ}
-D_\rb J_{n,j}(\uv,\rv,\xv_0)&=\int_0^T\sum_{i=1}^{n_u}\sum_{k=1}^{n_z}\bar{u}_i(s){dB}_{ijk}(\rv)p_k(s)\, ds.
+D_r J_{n,j}(\uv,\rv,\xv_0)&=\int_0^T\sum_{i=1}^{n_u}\sum_{k=1}^{n_z}\bar{u}_i(s){dB}_{ijk}(\rv)p_k(s)\, ds.
 \end{flalign}
 Knowing the components of the above optimality condition, this equation is compactly written as
 \begin{flalign}
-D_\rb J_n(\uv,\rv,\xv_0)&=\int_0^T\uv^*(s){dB}_n({\rv})\pv(s)\, ds.
+D_r J_n(\uv,\rv,\xv_0)&=\int_0^T\uv^*(s){dB}_n({\rv})\pv(s)\, ds.
 \end{flalign}
 
 %The time derivatives can be approximated using Euler method. Consider a partition $0=t_0<t_1<\cdots<t_{N}=T$, and let $\tau_i=t_i-t_{i-1}$, $i=1,2,...,N$. The time derivatives $\dot{\xv}(t)$ and $\dot{\pv}(t)$ are approximated as
@@ -310,11 +310,11 @@ A basis is chosen for the numerical simulation. Let
 \begin{equation}
 c_i=\sqrt{\frac{2\ell^3\pi^4 i^4}{EI\pi^4 i^4+k\ell^4+\rho a \ell^4 \pi^4 i^4}}.
 \end{equation}
-It is straightforward to show that the following sequence forms an orthonormal basis for $\ss$:
+It is straightforward to show that the following sequence forms an orthonormal basis for $X$:
 \begin{subequations}\label{Numerics-basis}
 \begin{flalign}
-\bm{e}^\ss_{2i-1}&=\left(\frac{c_i}{\pi^2i^2}\sin(\frac{\pi i}{\ell}\xi),c_i\sin(\frac{\pi i}{\ell}\xi) \right),\quad i\in \mathbb{N},\\ 
-\bm{e}^\ss_{2i}&=\left(-\frac{c_i}{\pi^2i^2}\sin(\frac{\pi i}{\ell}\xi),c_i\sin(\frac{\pi i}{\ell}\xi) \right),\quad i\in \mathbb{N}.
+\bm{e}^X_{2i-1}&=\left(\frac{c_i}{\pi^2i^2}\sin(\frac{\pi i}{\ell}\xi),c_i\sin(\frac{\pi i}{\ell}\xi) \right),\quad i\in \mathbb{N},\\ 
+\bm{e}^X_{2i}&=\left(-\frac{c_i}{\pi^2i^2}\sin(\frac{\pi i}{\ell}\xi),c_i\sin(\frac{\pi i}{\ell}\xi) \right),\quad i\in \mathbb{N}.
 \end{flalign}
 \end{subequations}
 Set $\mc{Q}(w,v)=(c_w w,c_v v)$ and $\mc{R}=c_u$ in the cost function for some positive constants $c_w$, $c_v$, and $c_u$. Then, the FVP and the optimality conditions (\ref{Numerics-eq-duJ}) and (\ref{Numerics-eq-drJ}) follow immediately. Letting $i=1,...,2n$, and
@@ -377,11 +377,11 @@ The coefficients $c_1$, $c_2$ and $c_4$ will be changed in simulations to observ
 
 Given an order of approximation, the initial conditions are chosen such that all modes are excited. The initial conditions are chosen from
 \begin{equation}
-\xb_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2},\, \frac{2}{4},\, \frac{3}{4},\, \frac{2}{8},\, \frac{3}{8},\, \frac{2}{16},\, \frac{3}{16}\right).
+x_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2},\, \frac{2}{4},\, \frac{3}{4},\, \frac{2}{8},\, \frac{3}{8},\, \frac{2}{16},\, \frac{3}{16}\right).
 \end{equation}
 The order of approximation is equal to the dimension of an initial condition. For example, if the order of approximation is 4, the initial condition is
 \begin{equation}
-\xb_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2}\right).
+x_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2}\right).
 \end{equation}
 The initial condition is illustrated in \Cref{Numerics-incond} for the 10th order approximation. 
 \begin{figure}[h]
