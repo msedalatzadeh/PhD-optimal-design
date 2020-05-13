@@ -1,0 +1,12 @@
+pp-1.5.4
+    1) Fixed bug with unindented comments
+    2) easy_intall functionality repaired
+    3) Code quality improved (many small changes)
+
+pp-1.5.3
+    1) Added support for methods of new-style classes.
+    2) Added ability to read secret key from pp_secret variable of .pythonrc.py
+    3) ppdoc.html and ppserver.1 are included in the distribution
+    4) examples bundled with the distribution
+
+CHANGELOG started
