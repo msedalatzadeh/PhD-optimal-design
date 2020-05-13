@@ -36,5 +36,34 @@ In this section, we apply the results of previous sections to compute an optimal
 
 The optimality conditions use the derivative of the cost function with respect to the input and the actuator location. In that, the adjoint of the IVP needs to be calculated. The adjoint equation is the following final value problem (FVP):
 <p align="center"><img src="/tex/17189b5ddcc4bb38e3c24262a74b87f6.svg?invert_in_darkmode&sanitize=true" align=middle width=516.3377686499999pt height=17.2895712pt/></p>
+
 For every <img src="/tex/794c6f1b3b189816a9973dda0d498a24.svg?invert_in_darkmode&sanitize=true" align=middle width=51.76927469999998pt height=22.465723500000017pt/>, the derivatives of the cost function with respect to <img src="/tex/6dbb78540bd76da3f1625782d42d6d16.svg?invert_in_darkmode&sanitize=true" align=middle width=9.41027339999999pt height=14.15524440000002pt/> and <img src="/tex/89f2e0d2d24bcf44db73aab8fc03252c.svg?invert_in_darkmode&sanitize=true" align=middle width=7.87295519999999pt height=14.15524440000002pt/> evaluated at <img src="/tex/b6fc862fdaf2fdac1381660401858678.svg?invert_in_darkmode&sanitize=true" align=middle width=87.94070669999998pt height=24.65753399999998pt/>, <img src="/tex/26f622d7f5bcda8339197d99bca8e680.svg?invert_in_darkmode&sanitize=true" align=middle width=89.14086224999998pt height=24.65753399999998pt/> are linear operators <img src="/tex/df15a679eaf6391c5cb3e0d7a268c5a1.svg?invert_in_darkmode&sanitize=true" align=middle width=94.34988914999998pt height=24.65753399999998pt/> and <img src="/tex/6e396c94cd46268fa84d584703049006.svg?invert_in_darkmode&sanitize=true" align=middle width=93.03514274999998pt height=24.65753399999998pt/>, respectively. Identifying each operator with an element of its underlying space, they are derived as
+
 <p align="center"><img src="/tex/d0fe9d6ff0e705e1ad59483c8289610a.svg?invert_in_darkmode&sanitize=true" align=middle width=493.63163849999995pt height=49.315569599999996pt/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Optimization Algorithms
+Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. This algorithm reads as follows:
+
+begin{algorithm}(Projected Gradient Method)
+<p align="center"><img src="/tex/d7666e1c8af0cbe5abd54154f96c2506.svg?invert_in_darkmode&sanitize=true" align=middle width=636.01678305pt height=307.3059396pt/></p>
+\end{algorithm}
