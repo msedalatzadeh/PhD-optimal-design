@@ -137,22 +137,13 @@ Simulations were conducted using the software MATLAB, Python, and C++. The progr
 
 ```matlab
 %% Generator.m
-% This script generates the nonlinear functions that describes the railway track vibrations
-clc
-clear all
-N=20  %Specify the maximum order of approximation
-
 syms alpha l x r delta EI rhoa k l par
 assume(alpha>0 & l>0 & r>0 & EI>0 & rhoa>0 & k>0 & l>0 & delta>0)
 assumeAlso(2*delta<l & delta<r & r+delta<l)
 par=[EI,rhoa,k,l,alpha,delta];
 
 b=piecewise(r-delta<x<r+delta,(x-r+delta)^2*(x-r-delta)^2/(16*delta^5)*15,0);
-br=diff(b,r);
-%%
-z=[];
-cc=[];
-W=0;
+br=diff(b,r)
 
 for n=1:N
    z=[z;sym(sprintf('z%d',n))];
@@ -164,16 +155,19 @@ for n=1:N/2
    for i=1:n
       F(2*i-1,1)=-alpha*cc(i)*simplify(int(W^3*sin(i*pi*x/l),x,0,l));
       F(2*i,1)=F(2*i-1,1);
-      
+
 .
 .
 . %% Please see the original file in the repository
 .
 .
 
+      
+      B(2*i-1,1)=cc(i)*simplify(int(b*sin(i*pi*x/l),x,0,l));
+   dB=subs(dB,cc,c(1:n,par));
+   
    matlabFunction(dB,'File',sprintf('dB%d',2*n),'Vars',{r,par});
-   n
-end
+toc
 ```
 
 We later use the m-functions to build a system of ODEs. The module `RTsolver.m` solves the railway track PDE given an input, actuator location, and parameters of the model.  The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system.
