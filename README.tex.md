@@ -219,3 +219,136 @@ s^r_n &=-\frac{\langle h^r_n , d^r_n \rangle_K}{\langle h^r_n+D_r J(u_n,r_n+s^r_
 \end{flalign*}
 
 \end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Simulation Results
+
+In the railway track model, if the variables $w$, $t$, and $\xi$ are appropriately substituted with dimensionless variables, a dimensionless PDE model for the railway track can be derived. Moreover, the final interval time is set to $\tau=10$. This gives the state of the controlled system enough time to settle. In addition, we choose $\delta=5\times 10^{-5}$ so that the input force is concentrated on a relatively small region on the track. In the cost function, we choose the same weights for the deflection, rate of deflection, and input; so $c_w=c_v=c_u=1$ is selected for the simulations. 
+
+Given an order of approximation, the initial conditions are chosen such that all modes are excited. The initial conditions are chosen from
+\begin{equation*}
+x_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2},\, \frac{2}{4},\, \frac{3}{4},\, \frac{2}{8},\, \frac{3}{8},\, \frac{2}{16},\, \frac{3}{16}\right).
+\end{equation*}
+
+The order of approximation is equal to the dimension of an initial condition. For example, if the order of approximation is 4, the initial condition is
+
+\begin{equation*}
+x_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2}\right).
+\end{equation*}
+
+The initial condition is illustrated in for the 10th order approximation. 
+
+<p align="center">
+<img src="results/initial condition.JPG" width="400" />
+</p>
+
+Simulations were conducted using the software MATLAB. The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
+
+
+|Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 4th order approximation or higher.|
+|:----:|
+|<p align="center">
+<img src="results/increasing order.eps" width="400" />
+</p>|
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/increasing order"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 4th order approximation or higher.}
+\label{fig-order damped}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/increasing order -undamped"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Convergence of the numerical scheme for different orders of approximation in damped beam. No significant improvement is observed for 6th order approximation or higher.}
+\label{fig-order undamped}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/linearVsnonlinear-damping"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Comparison of the optimal input and cost function in linear and nonlinear damped beam. The cost of control increases by increasing the nonlinearity.}
+\label{fig-nonlin damped}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/linearVSnonlinear-nodamping"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Comparison of the optimal input and cost function in linear and nonlinear undamped beam. The cost of control increases by increasing the nonlinearity.}
+\label{fig-nonlin undamped}
+\end{figure}
+
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/alpha"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Effect of nonlinearity on the cost function. The optimal actuator locations do not change significantly despite the change in the cost.}
+\label{fig-nonlin cost}
+\end{figure}
+
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/mu"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Effect of viscous damping on the cost function. The optimal actuator locations move away from center as the damping is decreased.}
+\label{fig-visc}
+\end{figure}
+
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/Cd"}
+\captionsetup{font=small, width=\linewidth}
+\caption{Effect of Kelvin-Voigt damping on the cost function. If $C_d=0$, the beam models is hyperbolic. The optimal actuator locations move away from center as the damping is decreased.}
+\label{fig-kelvin}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{"C:/Users/sajjad/Dropbox/Edalatzadeh/Numerics on railway model/MATLAB- Railway track - new codes/optimalVSmidpoint"}
+\captionsetup{font=small, width=\linewidth}
+\caption{ Comparison of optimal inputs: optimal location vs center. Actuators on optimal locations improve the control input.}
+\label{fig-center}
+\end{figure}
+
+
+
+
+
+
+
+## References
