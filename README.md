@@ -91,6 +91,11 @@ A new formula was also proposed by Hager and Zhang; define <img src="/tex/1c9d37
 
 
 Then, the formula is
-<p align="center"><img src="/tex/f9fcadcbe737bb4292df38072d94b29c.svg?invert_in_darkmode&sanitize=true" align=middle width=499.64356695pt height=19.726228499999998pt/></p>
+<p align="center"><img src="/tex/28cf6cb6d69167eba74e42db4c063dcc.svg?invert_in_darkmode&sanitize=true" align=middle width=299.01318315pt height=19.726228499999998pt/></p>
 
 
+
+
+Furthermore, several schemes have been proposed to choose the step length <img src="/tex/a68ff5515c27e035477f850a94c55cee.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/> (similarly <img src="/tex/764105dc279f1c31f3ecbf550438853a.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/>) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
+
+<p align="center"><img src="/tex/0ad484abc2c0010b52b4a1dfbbd41152.svg?invert_in_darkmode&sanitize=true" align=middle width=680.4113811pt height=878.9514062999999pt/></p>
