@@ -99,3 +99,84 @@ Then, the formula is
 Furthermore, several schemes have been proposed to choose the step length <img src="/tex/a68ff5515c27e035477f850a94c55cee.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/> (similarly <img src="/tex/764105dc279f1c31f3ecbf550438853a.svg?invert_in_darkmode&sanitize=true" align=middle width=15.831502499999988pt height=21.839370299999988pt/>) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
 
 <p align="center"><img src="/tex/0ad484abc2c0010b52b4a1dfbbd41152.svg?invert_in_darkmode&sanitize=true" align=middle width=680.4113811pt height=878.9514062999999pt/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Simulation Results
+
+In the railway track model, if the variables <img src="/tex/31fae8b8b78ebe01cbfbe2fe53832624.svg?invert_in_darkmode&sanitize=true" align=middle width=12.210846449999991pt height=14.15524440000002pt/>, <img src="/tex/4f4f4e395762a3af4575de74c019ebb5.svg?invert_in_darkmode&sanitize=true" align=middle width=5.936097749999991pt height=20.221802699999984pt/>, and <img src="/tex/85e60dfc14844168fd12baa5bfd2517d.svg?invert_in_darkmode&sanitize=true" align=middle width=7.94809454999999pt height=22.831056599999986pt/> are appropriately substituted with dimensionless variables, a dimensionless PDE model for the railway track can be derived. Moreover, the final interval time is set to <img src="/tex/533a256e00d4052bda65422cf4af0d07.svg?invert_in_darkmode&sanitize=true" align=middle width=47.40288299999998pt height=21.18721440000001pt/>. This gives the state of the controlled system enough time to settle. In addition, we choose <img src="/tex/b9221dc7c33afb6bfc7d9210029e3942.svg?invert_in_darkmode&sanitize=true" align=middle width=91.42108964999998pt height=26.76175259999998pt/> so that the input force is concentrated on a relatively small region on the track. In the cost function, we choose the same weights for the deflection, rate of deflection, and input; so <img src="/tex/6d09275a247d896ab33cdb5a7ae65b08.svg?invert_in_darkmode&sanitize=true" align=middle width=122.35896914999998pt height=21.18721440000001pt/> is selected for the simulations. 
+
+Given an order of approximation, the initial conditions are chosen such that all modes are excited. The initial conditions are chosen from
+<p align="center"><img src="/tex/00fad6a42a2b2bfe0c079a181e28b34b.svg?invert_in_darkmode&sanitize=true" align=middle width=290.795868pt height=39.452455349999994pt/></p>
+
+The order of approximation is equal to the dimension of an initial condition. For example, if the order of approximation is 4, the initial condition is
+
+<p align="center"><img src="/tex/5ddf5c4a25dde4850c273e14867b4bc1.svg?invert_in_darkmode&sanitize=true" align=middle width=141.0978162pt height=39.452455349999994pt/></p>
+
+The initial condition is illustrated in for the 10th order approximation. 
+
+<p align="center">
+<img src="results/initial condition.JPG" width="400" />
+</p>
+
+Simulations were conducted using the software MATLAB. The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/>, is increased. As a general rule of thumb, increasing <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/> increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
+
+
+|Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 4th order approximation or higher.|
+|:----:|
+|<p align="center">
+<img src="results/increasing order.eps" width="400" />
+</p>|
+
+<p align="center"><img src="/tex/03a3a43d21562289086cb29778acaa9c.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27462725pt height=91.14155655pt/></p>
+
+
+<p align="center"><img src="/tex/fc9d808d5471096505cb663be7e294f9.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27462725pt height=91.14155655pt/></p>
+
+
+<p align="center"><img src="/tex/328f1e109a8b014cacca28bb435aa37e.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27438305pt height=91.14155655pt/></p>
+
+
+
+<p align="center"><img src="/tex/ea7987cf38d1162cee83e9a21089bd56.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27438305pt height=91.14155655pt/></p>
+
+
+\newpage
+<p align="center"><img src="/tex/1bf4a50f358a3e009624bc7b15f0d258.svg?invert_in_darkmode&sanitize=true" align=middle width=700.2745216499999pt height=91.14155655pt/></p>
+
+
+
+
+
+<p align="center"><img src="/tex/d6e47f00d0857279b2d7b041927496cf.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27450515pt height=91.14155655pt/></p>
+
+
+
+
+
+<p align="center"><img src="/tex/823673311ecc51a9aea55849dd30fffc.svg?invert_in_darkmode&sanitize=true" align=middle width=700.274421pt height=91.14155655pt/></p>
+
+
+
+
+<p align="center"><img src="/tex/7e9622a177ea5e1e7dec1016fa1da076.svg?invert_in_darkmode&sanitize=true" align=middle width=700.2744969pt height=91.14155655pt/></p>
+
+
+
+
+
+
+
+## References
