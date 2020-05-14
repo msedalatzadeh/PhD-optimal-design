@@ -140,43 +140,6 @@ Simulations were conducted using the software MATLAB. The ODE solver `ode15s` wa
 <img src="results/increasing order.eps" width="400" />
 </p>|
 
-<p align="center"><img src="/tex/03a3a43d21562289086cb29778acaa9c.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27462725pt height=91.14155655pt/></p>
-
-
-<p align="center"><img src="/tex/fc9d808d5471096505cb663be7e294f9.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27462725pt height=91.14155655pt/></p>
-
-
-<p align="center"><img src="/tex/328f1e109a8b014cacca28bb435aa37e.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27438305pt height=91.14155655pt/></p>
-
-
-
-<p align="center"><img src="/tex/ea7987cf38d1162cee83e9a21089bd56.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27438305pt height=91.14155655pt/></p>
-
-
-\newpage
-<p align="center"><img src="/tex/1bf4a50f358a3e009624bc7b15f0d258.svg?invert_in_darkmode&sanitize=true" align=middle width=700.2745216499999pt height=91.14155655pt/></p>
-
-
-
-
-
-<p align="center"><img src="/tex/d6e47f00d0857279b2d7b041927496cf.svg?invert_in_darkmode&sanitize=true" align=middle width=700.27450515pt height=91.14155655pt/></p>
-
-
-
-
-
-<p align="center"><img src="/tex/823673311ecc51a9aea55849dd30fffc.svg?invert_in_darkmode&sanitize=true" align=middle width=700.274421pt height=91.14155655pt/></p>
-
-
-
-
-<p align="center"><img src="/tex/7e9622a177ea5e1e7dec1016fa1da076.svg?invert_in_darkmode&sanitize=true" align=middle width=700.2744969pt height=91.14155655pt/></p>
-
-
-
-
-
 
 
 ## References
