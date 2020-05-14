@@ -305,13 +305,18 @@ We later use the m-functions to build a system of ODEs. The module `RTsolver.m` 
 ```matlab
 %% RTsolver.m
 function [z,p,DuJ,DrJ,Cost]=RTsolver(ur,par)
-%par={[EI rhoa k l alpha delta mu Cd cw cv cu],tspan,z0}
-tspan=par{2};
-z0=par{3};
 
-m=length(tspan);
-u=ur(1:m);
-r=ur(m+1);
+F=str2func(sprintf('F%d',n));
+B=str2func(sprintf('B%d',n));
+dF=@(z)dF(z,par{1});
+dB=@(r)dB(r,par{1});
+
+options=odeset('RelTol',1e-5,'AbsTol',1e-6);
+sol_IVP=ode15s(@(t,z)IVP(t,z,interp1(tspan,u,t),A,F(z),B(r)),tspan,z0,options);
+sol_FVP=ode15s(@(t,p)FVP(t,p,deval(sol_IVP,t),A,dF(deval(sol_IVP,t)),Q),fliplr(tspan),0*z0,options);
+z=deval(sol_IVP,tspan);
+p=deval(sol_FVP,tspan);
+
 
 .
 .
@@ -319,17 +324,61 @@ r=ur(m+1);
 .
 .
 
-L=zeros(1,m);
-for i=1:m
-L(i)=z(:,i)'*Q*z(:,i)+u(:,i)'*R*u(:,i);
-end
+
+
+DuJ=2*(B(r)'*p+R*u);
+DrJ=zeros(1,m);
 Cost=trapz(tspan,L);
 end
 ```
 
+We later use the solve inside an optimization scheme to fild the best control and actuator location. MATLAB optimization routine `fmincon` was used as the optimization algorithm. This task is executed in `ResultsGeenrator.m` that evetually saves the results as a `.mat` file in a directory.
+
+```matlab
+u1=sin(tspan*pi/T);
+r1=0.9*l;
+z0=z0(1:N)
+par={[EI,rhoa,k,l,Alpha,delta,mu,Cd,cw,cv,cu],tspan,z0}
+%% Optimizer uo and ro
+disp('Optimizer uo and ro')
+options=optimoptions('fmincon','Display','off','SpecifyObjectiveGradient'...
+   ,true,'HonorBounds',true,'MaxIterations',35,'Algorithm',...
+   'interior-point','SubproblemAlgorithm','cg','HessianApproximation','bfgs');
+rmin=0+par{1}(6);
+rmax=par{1}(4)-par{1}(6);
+lb=[-10*ones(1,length(tspan)),rmin];
+ub=[+10*ones(1,length(tspan)),rmax];
+
+[ur,Cost]=fmincon(@(ur)RTcostgrad(ur,par),[u1,r1],[],[],[],[],lb,ub,[]...
+   ,options);
+cputime=toc;
+m=length(tspan);
+u_fmin=ur(1:m);
+r_fmin=ur(m+1);
 
 
- MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
+.
+.
+. %% Please see the original file in the repository
+.
+.
+
+
+while i<=mesh
+    for n=1:N/2
+        w0(i)=w0(i)+z0(2*n-1)*c(n,par{1})*sin(n*pi*x(i)/l)/(n^2*pi^2)...
+            -z0(2*n)*c(n,par{1})*sin(n*pi*x(i)/l)/(n^2*pi^2);
+        v0(i)=v0(i)+z0(2*n-1)*c(n,par{1})*sin(n*pi*x(i)/l)...
+            -z0(2*n)*c(n,par{1})*sin(n*pi*x(i)/l);
+    end
+    i=i+1;
+end
+save(sprintf('%gmode&Alpha%g&Cd%g&mu%g.mat',N,Alpha,Cd_exp,mu_exp))
+```
+
+
+
+The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
 
 
 <p align="center">
