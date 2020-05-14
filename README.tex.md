@@ -86,7 +86,7 @@ D_{r}J(u,r,x_0)&=\int_0^T(B'_{r}u(s))^*p(s)\, ds.
 ## Optimization Algorithms
 Several optimization algorithms were suggested in the literature for solving PDE-constrained optimization problems. In this section, two common optimization algorithms for solving the optimization problem will be discussed. These are projected gradient method and nonlinear conjugate gradient method. In projected gradient (or steepest descent) method, the negative of the gradient is considered as the search direction. 
 
-### Projected Gradient Algorithm
+#### Projected Gradient Algorithm
 The projected gradient method reads as follows:
 
 \begin{enumerate}
@@ -104,7 +104,7 @@ The projected gradient method reads as follows:
 
 Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. 
 
-### Conjugate Gradient Algorithm
+#### Conjugate Gradient Algorithm
 The nonlinear conjugate gradient method reads as follows:
 
 \begin{enumerate}
