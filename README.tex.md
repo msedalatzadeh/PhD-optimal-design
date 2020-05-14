@@ -163,3 +163,13 @@ Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $
 
 
 
+A new formula was also proposed by Hager and Zhang; define $\bar{\beta}^u_{n+1}$ and $\eta^u_{n+1}$ as
+
+\begin{flalign}
+\bar{\beta}^u_{n+1}&=\frac{\langle \gamma^u_{n+1}-2\frac{\| \gamma^u_{n+1} \|_U^2}{\langle d^u_{n} , \gamma^u_{n+1} \rangle_U}d^u_n , h^u_{n+1} \rangle_U}{\langle d^u_{n+1} , \gamma^u_{n+1} \rangle_U},\notag \\
+\eta^u_{n+1}&=-\frac{1}{\| d^u_n \|_{U}}\min\left\{0.01,\| h^u_n \|_{U}\right\}\notag.
+\end{flalign}
+
+
+
+
