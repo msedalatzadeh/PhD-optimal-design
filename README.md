@@ -285,6 +285,30 @@ legend('Nonlinear model','Linear model')
 
 ```
 
+Since the computation is heavy and involves long runs, we executed the codes on SHARCNET supercomputers and incorporated parallel programming on up to 21 cores. The following bash script is used to submit the jobs
+
+```bash
+#!/bin/bash
+# bash script for submitting a Matlab job to the sharcnet Graham queue
+
+#SBATCH --mem-per-cpu=1G        # memory per processor (default in Mb)
+#SBATCH --time=00-02:00         # time (DD-HH:MM)
+#SBATCH --job-name="Sajjad"     # job name
+#SBATCH --input=ResultsGenerator6.m   # Matlab script
+##SBATCH �dependency=afterok:<jobid>  # Wait for job to complete
+
+#SBATCH --ntasks=1              # number of processors
+#SBATCH --cpus-per-task=15
+#SBATCH --output=log1.log                 # log file
+#SBATCH --error=errorfile.err                  # error file
+#SBATCH --mail-user=FAIL     # who to email
+#SBATCH --mail-type=FAIL                    # when to email
+#SBATCH --account=def-kmorris              # UW Fluids designated resource allocation
+module load matlab/2018a 
+srun matlab -nodisplay -nosplash
+```
+
+
 The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/>, is increased. As a general rule of thumb, increasing <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/> increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
 
 
