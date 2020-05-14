@@ -176,6 +176,9 @@ Then, the formula is
 \text{Hager-Zhang:}\quad \beta^u_{n+1}=\max\left\{\bar{\beta}^u_{n+1},\eta^u_{n+1}\right\}
 \end{equation}
 
+
+
+
 Furthermore, several schemes have been proposed to choose the step length $s^u_n$ (similarly $s^r_n$) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
 %, and Hager-Zhang with guaranteed descent.
 \begin{enumerate}

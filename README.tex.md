@@ -172,4 +172,9 @@ A new formula was also proposed by Hager and Zhang; define $\bar{\beta}^u_{n+1}$
 
 
 
+Then, the formula is
+\begin{equation}
+\text{Hager-Zhang:}\quad \beta^u_{n+1}=\max\left\{\bar{\beta}^u_{n+1},\eta^u_{n+1}\right\}
+\end{equation}
+
 
