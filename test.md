@@ -155,9 +155,9 @@ The nonlinear conjugate gradient method reads as follows:
 Several choices exist for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$) of the previous algorithm. Letting $\gamma^u_{n+1}=h^u_{n+1}-h^u_n$, the following are considered for selecting the step length $\beta^u_{n+1}$ (similarly $\beta^r_{n+1}$)
 
 \begin{flalign*}
-&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\| h^u_{n+1}}{U}}{\| h^u_n}{U}},\\
-&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\| h^u_n}{U}},\\
-&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\langle h^u_{n+1}}{\gamma^u_{n+1} \rangle_U}{\langle d^u_n}{\gamma^u_{n+1} \rangle_U}.
+&\text{Fletcher-Reeves:} \quad \beta^u_{n+1}=\frac{\| h^u_{n+1}\|_{U}}{\| h^u_n\|_{U}},\\
+&\text{Polan-Ribi\`ere:} \quad \beta^u_{n+1}=\frac{\langle h^u_{n+1} , \gamma^u_{n+1} \rangle_U}{\| h^u_n\|_{U}},\\
+&\text{Hestenes-Stiefel:} \quad  \beta^u_{n+1}=\frac{\langle h^u_{n+1} , \gamma^u_{n+1} \rangle_U}{\langle d^u_n , \gamma^u_{n+1} \rangle_U}.
 \end{flalign*}
 
 
