@@ -128,38 +128,96 @@ The order of approximation is equal to the dimension of an initial condition. Fo
 The initial condition is illustrated in for the 10th order approximation. 
 
 <p align="center">
-<img src="results/initial-condition.JPG" width="400" />
+<img src="results/initinal-condition.jpg" width="400" />
 </p>
 
-
-<p align="center">
-<img src="results/initial-condition.eps" width="400" />
-</p>
-
-
-<p align="center">
-<img src="results/initial-condition-eps-converted-to.eps" width="400" />
-</p>
-
-![](results/initial-condition-eps-converted-to.eps)
-
-![](results/initial-condition.eps)
-
-![](results/initial-condition.JPG)
 
 
 Simulations were conducted using the software MATLAB. The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/>, is increased. As a general rule of thumb, increasing <img src="/tex/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode&sanitize=true" align=middle width=10.57650494999999pt height=14.15524440000002pt/> increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
 
 
-|Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 4th order approximation or higher.|
-|:----:|
-|<p align="center">
-<img src="results/increasing order.eps" width="400" />
-</p>|
+<p align="center">
+<img src="results/increasing-order.png" width="400" />
+
+Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 4th order approximation or higher.
+</p>
 
 
 
 
+
+<p align="center">
+<img src="results/increasing-order-undamped.png" width="400" />
+
+Convergence of the numerical scheme for different orders of approximation in undamped beam. No significant improvement is observed for 6th order approximation or higher.
+</p>
+
+
+
+
+
+<p align="center">
+<img src="results/linearVsnonlinear-damping.png" width="400" />
+
+Comparison of the optimal input and cost function in linear and nonlinear damped beam. The cost of control increases by increasing the nonlinearity.
+</p>
+
+
+
+
+
+
+
+<p align="center">
+<img src="results/linearVSnonlinear-nodamping.png" width="400" />
+
+Comparison of the optimal input and cost function in linear and nonlinear undamped beam. The cost of control increases by increasing the nonlinearity.
+</p>
+
+
+
+
+
+
+<p align="center">
+<img src="results/alpha.png" width="400" />
+
+Effect of nonlinearity on the cost function. The optimal actuator locations do not change significantly despite the change in the cost.
+</p>
+
+
+
+
+
+
+<p align="center">
+<img src="results/mu.png" width="400" />
+
+Effect of viscous damping on the cost function. The optimal actuator locations move away from center as the damping is decreased.
+</p>
+
+
+
+
+
+
+
+<p align="center">
+<img src="results/Cd.png" width="400" />
+
+Effect of Kelvin-Voigt damping on the cost function. If <img src="/tex/28b5c670a0bb5d17c8c5d3d1cfe61719.svg?invert_in_darkmode&sanitize=true" align=middle width=49.550684699999984pt height=22.465723500000017pt/>, the beam models is hyperbolic. The optimal actuator locations move away from center as the damping is decreased.
+</p>
+
+
+
+
+
+
+<p align="center">
+<img src="results/optimalVSmidpoint.png" width="400" />
+
+Comparison of optimal inputs: optimal location vs center. Actuators on optimal locations improve the control input.
+</p>
 
 
 ## References
