@@ -251,6 +251,7 @@ save(sprintf('%gmode&Alpha%g&Cd%g&mu%g.mat',N,Alpha,Cd_exp,mu_exp))
 Finally, the script `Plotter.m` is created to produce readable and informative plots.
 
 ```matlab
+%% Plotter.m
 set(groot,'defaultLineLineWidth',1)
 set(0,'defaultAxesFontSize',14)
 set(groot,'defaulttextinterpreter','latex')
@@ -261,8 +262,6 @@ set(groot,'defaultLegendInterpreter','latex');
 hu=figure;
 %set(h,'LineColor','red')
 plot(tspan,uo,'Color','black')
-xlabel('<img src="/tex/4f4f4e395762a3af4575de74c019ebb5.svg?invert_in_darkmode&sanitize=true" align=middle width=5.936097749999991pt height=20.221802699999984pt/>')
-ylabel('<img src="/tex/4549b2ded4caa890a4ef63153e1888a8.svg?invert_in_darkmode&sanitize=true" align=middle width=35.44230194999999pt height=24.65753399999998pt/>')
 title('Optimal input')
 n=length(un)
 for i=1:n
