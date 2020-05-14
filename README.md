@@ -90,4 +90,7 @@ A new formula was also proposed by Hager and Zhang; define <img src="/tex/1c9d37
 
 
 
+Then, the formula is
+<p align="center"><img src="/tex/f9fcadcbe737bb4292df38072d94b29c.svg?invert_in_darkmode&sanitize=true" align=middle width=499.64356695pt height=19.726228499999998pt/></p>
+
 
