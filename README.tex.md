@@ -256,8 +256,52 @@ The initial condition is illustrated in for the 10th order approximation.
 </p>
 
 
+#### Programming
+Simulations were conducted using the software MATLAB, Python, and C++. The programming is carried out extensively. The first code that was created uses MATLAB Symbolic Toolbox to find the symbolic discretization of the railway track PDE and return a symbolic set of ordinary differential equations (ODEs). The script later uses `MatlabFunction` to generate matlab function that are optimized for next computation.
 
-Simulations were conducted using the software MATLAB. The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
+```matlab
+%% Generator.m
+% This script generates the nonlinear functions that describes the railway track vibrations
+clc
+clear all
+N=20  %Specify the maximum order of approximation
+
+syms alpha l x r delta EI rhoa k l par
+assume(alpha>0 & l>0 & r>0 & EI>0 & rhoa>0 & k>0 & l>0 & delta>0)
+assumeAlso(2*delta<l & delta<r & r+delta<l)
+par=[EI,rhoa,k,l,alpha,delta];
+
+b=piecewise(r-delta<x<r+delta,(x-r+delta)^2*(x-r-delta)^2/(16*delta^5)*15,0);
+br=diff(b,r);
+%%
+z=[];
+cc=[];
+W=0;
+
+for n=1:N
+   z=[z;sym(sprintf('z%d',n))];
+end
+for n=1:N/2
+   cc=[cc,sym(sprintf('c%d',n))];
+   W=W+z(2*n-1)*cc(n)*sin(n*pi*x/l)/(n^2*pi^2)...
+      -z(2*n)*cc(n)*sin(n*pi*x/l)/(n^2*pi^2);
+   for i=1:n
+      F(2*i-1,1)=-alpha*cc(i)*simplify(int(W^3*sin(i*pi*x/l),x,0,l));
+      F(2*i,1)=F(2*i-1,1);
+      
+.
+.
+. %% Please see the original file
+.
+.
+
+   matlabFunction(dB,'File',sprintf('dB%d',2*n),'Vars',{r,par});
+   n
+end
+```
+
+
+The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
 
 
 <p align="center">
@@ -345,3 +389,20 @@ Comparison of optimal inputs: optimal location vs center. Actuators on optimal l
 
 
 ## References
+[1] M. S. Edalatzadeh and K. A. Morris, “Optimal Actuator Design for Semi-linear Systems,” Submitt. available arXiv 1802.05807, 2018.
+
+[2] M. S. Edalatzadeh and K. A. Morris, “Stability and Well-posedness of a Nonlinear Railway Track Model,” IEEE Control Syst. Lett., vol. 3, no. 1, pp. 162–167, 2019.
+
+[3] M. S. Edalatzadeh and K. A. Morris, “Optimal controller and actuator design for nonlinear parabolic systems,” Submitt. available arXiv 1903.07572, 2019.
+
+[4] M. S. Edalatzadeh, D. Kalise, K. A. Morris, and K. Sturm, “Optimal actuator design for vibration control based on LQR performance and shape calculus,” Submitt. available arXiv 1903.07572, 2019.
+
+[5] J. Nocedal and S. J. Wright, Numerical optimization. Springer-Verlag New York, 2006.
+
+[6] R. Herzog and K. Kunisch, “Algorithms for PDE-constrained optimization,” GAMM Mitteilungen, vol. 33, no. 2, pp. 163–176, 2010.
+
+[7] R. Buchholz, H. Engel, E. Kammann, and F. Tröltzsch, “On the optimal control of the Schlögl-model,” Comput. Optim. Appl., vol. 56, no. 1, pp. 153–185, Sep. 2013.
+
+[8] W. W. Hager and H. Zhang, “A new conjugate gradient method with guaranteed descent and an efficient line search,” SIAM J. Optim., vol. 16, no. 1, pp. 170–192, 2005.
+
+[9] W. W. Hager and H. Zhang, “A survey of nonlinear conjugate gradient methods,” Pacific J. Optim., vol. 2, no. 1, pp. 35–58, 2006.
