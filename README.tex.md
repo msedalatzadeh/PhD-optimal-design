@@ -329,6 +329,7 @@ end
 We later use the solve inside an optimization scheme to fild the best control and actuator location. MATLAB optimization routine `fmincon` was used as the optimization algorithm. This task is executed in `ResultsGeenrator.m` that evetually saves the results as a `.mat` file in a directory.
 
 ```matlab
+%% ResultsGeenrator.m
 u1=sin(tspan*pi/T);
 r1=0.9*l;
 z0=z0(1:N)
@@ -371,6 +372,43 @@ save(sprintf('%gmode&Alpha%g&Cd%g&mu%g.mat',N,Alpha,Cd_exp,mu_exp))
 ```
 
 
+Finally, the script `Plotter.m` is created to produce readable and informative plots.
+
+```matlab
+set(groot,'defaultLineLineWidth',1)
+set(0,'defaultAxesFontSize',14)
+set(groot,'defaulttextinterpreter','latex')
+set(groot,'defaultAxesTickLabelInterpreter','latex')
+set(groot,'defaultLegendInterpreter','latex');
+
+%% Optimal Input vs Time
+hu=figure;
+%set(h,'LineColor','red')
+plot(tspan,uo,'Color','black')
+xlabel('$t$')
+ylabel('$u^o(t)$')
+title('Optimal input')
+n=length(un)
+for i=1:n
+   hold on
+   plot(tspan,un{i})
+   drawnow
+   pause(0.5)
+end
+plot(tspan,u_lqr,'--')
+plot(tspan,u_fmin)
+%% Optimal Cost
+hc_comp=figure
+plot(r,J_fmin,r,J_lqr)
+legend('Nonlinear model','Linear model')
+
+.
+.
+. %% Please see the original file in the repository
+.
+.
+
+```
 
 The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
 
