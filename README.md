@@ -75,3 +75,10 @@ Projected gradient method is typically converging to an optimizer slowly, wherea
 The nonlinear conjugate gradient method reads as follows:
 
 <p align="center"><img src="/tex/446c9eef00c5c420ac599b79cbb821f7.svg?invert_in_darkmode&sanitize=true" align=middle width=688.4025555pt height=710.8838121pt/></p>
+
+
+
+Several choices exist for selecting the step length <img src="/tex/6048c4fc08d21c02067a5da6a58c128b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/> (similarly <img src="/tex/2821c0570e6ce1f89053bac27705416b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/>) of the previous algorithm. Letting <img src="/tex/7d853684f81df818b709dc7fd758f3b1.svg?invert_in_darkmode&sanitize=true" align=middle width=128.77141364999997pt height=22.831056599999986pt/>, the following are considered for selecting the step length <img src="/tex/6048c4fc08d21c02067a5da6a58c128b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/> (similarly <img src="/tex/2821c0570e6ce1f89053bac27705416b.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=22.831056599999986pt/>)
+
+<p align="center"><img src="/tex/95548f3ef2a10ba9f5787aa9ec5ed85f.svg?invert_in_darkmode&sanitize=true" align=middle width=318.0409056pt height=78.07321004999999pt/></p>
+
