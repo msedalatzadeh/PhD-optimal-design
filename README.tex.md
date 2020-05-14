@@ -521,21 +521,21 @@ Comparison of optimal inputs: optimal location vs center. Actuators on optimal l
 
 
 ## References
-[1] **M. S. Edalatzadeh** and K. A. Morris, “Optimal actuator design for semilinear systems,” SIAM J. Control Optim., vol. 57, no. 4, pp. 2992–3020, 2019.
+[1] **M. S. Edalatzadeh** and K. A. Morris, “Optimal actuator design for semilinear systems,” SIAM Journal of Control & Optimization, vol. 57, no. 4, pp. 2992–3020, 2019.
 
-[2] **M. S. Edalatzadeh** and K. A. Morris, “Stability and Well-posedness of a Nonlinear Railway Track Model,” IEEE Control Syst. Lett., vol. 3, no. 1, pp. 162–167, 2019.
+[2] **M. S. Edalatzadeh** and K. A. Morris, “Stability and Well-posedness of a Nonlinear Railway Track Model,” IEEE Control System Letters, vol. 3, no. 1, pp. 162–167, 2019.
 
-[3] **M. S. Edalatzadeh** and K. A. Morris, “Optimal controller and actuator design for nonlinear parabolic systems,” Submitt. available arXiv 1903.07572, 2019.
+[3] **M. S. Edalatzadeh** and K. A. Morris, “Optimal controller and actuator design for nonlinear parabolic systems,” Submitted. available on arXiv 1903.07572, 2019.
 
-[4] **M. S. Edalatzadeh**, D. Kalise, K. A. Morris, and K. Sturm, “Optimal actuator design for vibration control based on LQR performance and shape calculus,” Submitt. available arXiv 1903.07572, 2019.
+[4] **M. S. Edalatzadeh**, D. Kalise, K. A. Morris, and K. Sturm, “Optimal actuator design for vibration control based on LQR performance and shape calculus,” Submitted. available on arXiv 1903.07572, 2019.
 
 [5] R. Herzog and K. Kunisch, “Algorithms for PDE-constrained optimization,” GAMM Mitteilungen, vol. 33, no. 2, pp. 163–176, 2010.
 
 [6] J. Nocedal and S. J. Wright, Numerical optimization. Springer-Verlag New York, 2006.
 
 
-[7] R. Buchholz, H. Engel, E. Kammann, and F. Tröltzsch, “On the optimal control of the Schlögl-model,” Comput. Optim. Appl., vol. 56, no. 1, pp. 153–185, Sep. 2013.
+[7] R. Buchholz, H. Engel, E. Kammann, and F. Tröltzsch, “On the optimal control of the Schlögl-model,” Computational Optimization and Applications, vol. 56, no. 1, pp. 153–185, Sep. 2013.
 
-[8] W. W. Hager and H. Zhang, “A new conjugate gradient method with guaranteed descent and an efficient line search,” SIAM J. Optim., vol. 16, no. 1, pp. 170–192, 2005.
+[8] W. W. Hager and H. Zhang, “A new conjugate gradient method with guaranteed descent and an efficient line search,” SIAM Journal of Optimization, vol. 16, no. 1, pp. 170–192, 2005.
 
-[9] W. W. Hager and H. Zhang, “A survey of nonlinear conjugate gradient methods,” Pacific J. Optim., vol. 2, no. 1, pp. 35–58, 2006.
+[9] W. W. Hager and H. Zhang, “A survey of nonlinear conjugate gradient methods,” Pacific Journal of Optimization, vol. 2, no. 1, pp. 35–58, 2006.
