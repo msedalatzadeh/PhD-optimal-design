@@ -252,7 +252,12 @@ x_0=\left(2,\, 3,\, \frac{2}{2},\, \frac{3}{2}\right).
 The initial condition is illustrated in for the 10th order approximation. 
 
 <p align="center">
-<img src="results/initial condition.JPG" width="400" />
+<img src="results/initial-condition.JPG" width="400" />
+</p>
+
+
+<p align="center">
+<img src="results/initial-condition.eps" width="400" />
 </p>
 
 Simulations were conducted using the software MATLAB. The ODE solver `ode15s` was used to solve the finite-dimensional approximation of the system. MATLAB optimization routine `fmincon` was also used as the optimization algorithm. The convergence of the approximation method is illustrated. It is observed that beyond 6th order approximation, increasing the approximation order will not make a noticeable difference. The following figure compare the cost and optimal input for the linear and nonlinear model in the presence and absence of damping. These figures indicate a significant change in the cost of control and in the optimal input. It also shows how the cost and optimal location of actuators change when the coefficient of nonlinearity, $\alpha$, is increased. As a general rule of thumb, increasing $\alpha$ increases the cost of control. Moreover, it shows how the cost and location of actuators change when the coefficient of viscous and Kelvin-Voigt damping are decreased. Simulations show that the optimal location of actuators moves away from the center as the damping is decreased. Also, an interesting observation is made where local optimizers appear by decreasing the coefficient of Kelvin-Voigt damping. Lastly, it shows the improvement in the performance of the control system when the optimal location is chosen for the actuator over the center location.  
