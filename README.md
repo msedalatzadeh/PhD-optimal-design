@@ -84,3 +84,10 @@ Several choices exist for selecting the step length <img src="/tex/6048c4fc08d21
 
 
 
+A new formula was also proposed by Hager and Zhang; define <img src="/tex/1c9d379fca0ba4abc98eeec665ac2dc7.svg?invert_in_darkmode&sanitize=true" align=middle width=34.067908049999986pt height=27.342470100000007pt/> and <img src="/tex/a8ccffe21d32d0177c73290cf2feface.svg?invert_in_darkmode&sanitize=true" align=middle width=32.932104149999994pt height=21.839370299999988pt/> as
+
+<p align="center"><img src="/tex/90aff62e5f8cdc03683ac0931d2da560.svg?invert_in_darkmode&sanitize=true" align=middle width=283.2773097pt height=97.9161975pt/></p>
+
+
+
+
