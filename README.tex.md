@@ -375,6 +375,7 @@ save(sprintf('%gmode&Alpha%g&Cd%g&mu%g.mat',N,Alpha,Cd_exp,mu_exp))
 Finally, the script `Plotter.m` is created to produce readable and informative plots.
 
 ```matlab
+%% Plotter.m
 set(groot,'defaultLineLineWidth',1)
 set(0,'defaultAxesFontSize',14)
 set(groot,'defaulttextinterpreter','latex')
@@ -385,8 +386,6 @@ set(groot,'defaultLegendInterpreter','latex');
 hu=figure;
 %set(h,'LineColor','red')
 plot(tspan,uo,'Color','black')
-xlabel('$t$')
-ylabel('$u^o(t)$')
 title('Optimal input')
 n=length(un)
 for i=1:n
