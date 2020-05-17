@@ -8,7 +8,7 @@ Actuator location and design are important design variables  in controller synth
 Railway tracks are rested on ballast which are known for exhibiting nonlinear viscoelastic behavior. 
 
 <p align="center">
-<img src="figs/track.png" width="400" />
+<img src="figs/track.png" width="500" />
 </p>
 
 If a track beam is made of a Kelvin-Voigt material, then the railway track model will be a semi-linear partial differential equation on <img src="/tex/2a1afb1e2126e7a44c815592bdd86dd1.svg?invert_in_darkmode&sanitize=true" align=middle width=59.54613389999999pt height=24.65753399999998pt/> as follows:
