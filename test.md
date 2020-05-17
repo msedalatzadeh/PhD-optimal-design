@@ -181,12 +181,14 @@ Then, the formula is
 
 Furthermore, several schemes have been proposed to choose the step length $s^u_n$ (similarly $s^r_n$) in each iteration of previous algorithms including bisection, (strong) Wolfe conditions, Secant method.
 %, and Hager-Zhang with guaranteed descent.
+
 \begin{enumerate}
 \item \textbf{Bisection \cite{buchholz2013}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$, $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$, and $J(u_{n,m},r_{n,m};x_0)$. If
 \begin{equation}
 J(u_{n,m},r_{n,m};x_0)\le J(u_{n},r_n;x_0),
 \end{equation}
 then accept the step size; otherwise, set $s^u_{n,m+1}=\frac{1}{2}s^u_{n,m}$ and $s^r_{n,m+1}=\frac{1}{2}s^r_{n,m}$ and repeat the process.
+
 \item \textbf{Wolfe conditions \cite[Section~3.1]{nocedal1999}:} In each iteration $n$ of the algorithms, initialize $s^u_{n,1}$ and $s^r_{n,1}$. Set $m=1$. Pick constants $c_1$ and $c_2$ in the interval $(0,1)$. Compute $u_{n,m}=u_{n}+s^u_{n,m} d^u_{n}$ and $r_{n,m}=r_{n}+s^r_{n,m} d^r_{n}$ together with  $h^u_{n,m}=-D_u J(u_{n,m},r_{n,m};x_0)$ and $h^r_{n,m}=-D_r J(r_{n,m},r_{n,m};x_0)$. Iterate the step size $s^u_{n,m}$ and $s^r_{n,m}$ until the following conditions are met
 
 \begin{subequations}\label{Numerics-eq-curvature Wolfe}
@@ -338,6 +340,8 @@ D_r J_n(\uv,\rv,\xv_0)&=\int_0^T\uv^*(s){dB}_n({\rv})\pv(s)\, ds.
 %\item \textbf{Implicit scheme:} The right hand side of IVP and FVP will be calculated at a the current time step (i.e. $t=t_{i}$).
 %\item \textbf{Semi-implicit scheme:} The nonlinear parts of the IVP and FVP are calculated at a the previous time step, whereas the linear parts are calculated at the current step time.
 %\end{enumerate}
+
+
 
 ## Simulation Results
 A basis is chosen for the numerical simulation. Let 
