@@ -30,7 +30,7 @@ assumed to be a scalar input in order to simplify the exposition. The shape infl
 function $b(\xi;  r) $  is assumed continuously differentiable with respect to $r$ over $\mathbb{R}$; a suitable function for the case of actuator location is illustrated in the figure.
 
 <p align="center">
-<img src="figs/Beam-schematic-2.JPG" width="400" />
+<img src="figs/Beam-schematic-2.JPG" width="400" />Fig. 1
 </p>
 
 
