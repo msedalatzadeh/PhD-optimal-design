@@ -108,7 +108,7 @@ The projected gradient method reads as follows:
 \item \textbf{end while}
 \end{enumerate}
 
-Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence \cite{nocedal1999}. 
+Projected gradient method is typically converging to an optimizer slowly, whereas the nonlinear conjugate gradient method promises faster convergence. 
 
 #### Conjugate Gradient Algorithm
 The nonlinear conjugate gradient method reads as follows:
