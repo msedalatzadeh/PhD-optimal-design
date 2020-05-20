@@ -21,7 +21,7 @@ assumed to be a scalar input in order to simplify the exposition. The shape infl
 function <img src="/tex/2b4416ce2e321aa9278e0f6e393fbfed.svg?invert_in_darkmode&sanitize=true" align=middle width=42.96715664999999pt height=24.65753399999998pt/>  is assumed continuously differentiable with respect to <img src="/tex/89f2e0d2d24bcf44db73aab8fc03252c.svg?invert_in_darkmode&sanitize=true" align=middle width=7.87295519999999pt height=14.15524440000002pt/> over <img src="/tex/f3e711926cecfed3003f9ae341f3d92b.svg?invert_in_darkmode&sanitize=true" align=middle width=11.87217899999999pt height=22.648391699999998pt/>; a suitable function for the case of actuator location is illustrated in the figure.
 
 <p align="center">
-<img src="figs/Beam-schematic-2.JPG" width="400" />
+<img src="figs/Beam-schematic-2.JPG" width="400" />Fig. 1
 </p>
 
 
